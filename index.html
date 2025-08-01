@@ -2,53 +2,62 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 视口设置：确保移动端正确缩放，禁止用户缩放以保持布局一致性 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>EmbeddedLab - 嵌入式开发实验室</title>
+    <!-- 引入Tailwind CSS框架 -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标库 -->
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- Tailwind配置：扩展主题定义自定义颜色和字体 -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#65B7C9', // 浅蓝色
-                        secondary: '#F8C8DC', // 浅粉色
-                        accent: '#9D65C9', // 粉紫色
-                        light: '#FFFFFF', // 白色
+                        primary: '#65B7C9',   // 主色调：浅蓝色（代表科技、专业）
+                        secondary: '#F8C8DC', // 辅助色：浅粉色（用于平衡主色调）
+                        accent: '#9D65C9',    // 强调色：粉紫色（用于突出重要元素）
+                        light: '#FFFFFF',     // 白色（背景色）
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'], // 无衬线字体栈，确保跨平台一致性
                     }
                 }
             }
         }
     </script>
+    
+    <!-- 自定义样式：补充Tailwind未覆盖的样式需求 -->
     <style type="text/tailwindcss">
-        /* 移除@apply，直接使用工具类或常规CSS */
         .text-shadow {
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 文本阴影：增强可读性 */
         }
         .transition-custom {
-            transition: all 0.3s ease;
+            transition: all 0.3s ease; /* 统一过渡动画：提升交互体验 */
         }
         .skill-icon {
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease; /* 技能图标缩放动画 */
         }
         .skill-icon:hover {
-            transform: scale(1.1);
+            transform: scale(1.1); /* 悬停时轻微放大：增强交互反馈 */
         }
     </style>
 </head>
+
+<!-- 页面主体：浅灰色背景，深灰色文本，确保良好对比度 -->
 <body class="bg-gray-50 text-gray-800 font-sans">
-    <!-- 导航栏 -->
+    <!-- 导航栏：固定在顶部，白色背景，阴影效果增强层次感 -->
     <header class="sticky top-0 z-50 bg-white shadow-md">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="/" class="flex items-center space-x-2">
+            <!-- 网站Logo：点击返回首页 -->
+            <a href="/" class="flex items-center space-x-2" aria-label="返回首页">
                 <span class="text-2xl font-bold text-primary">EmbeddedLab</span>
             </a>
             
-            <!-- 桌面导航 -->
-            <nav class="hidden md:flex space-x-8">
+            <!-- 桌面端导航：中等屏幕以上显示 -->
+            <nav class="hidden md:flex space-x-8" aria-label="主导航">
                 <a href="/" class="font-medium text-primary hover:text-accent transition-custom">首页</a>
                 <a href="/pages/projects.html" class="font-medium text-gray-600 hover:text-primary transition-custom">项目</a>
                 <a href="/pages/chips.html" class="font-medium text-gray-600 hover:text-primary transition-custom">芯片</a>
@@ -56,14 +65,24 @@
                 <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-custom">联系</a>
             </nav>
             
-            <!-- 移动端菜单按钮 -->
-            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
+            <!-- 移动端菜单按钮：中等屏幕以下显示 -->
+            <button 
+                id="mobile-menu-button" 
+                class="md:hidden text-gray-600 focus:outline-none"
+                aria-label="打开菜单"
+                aria-expanded="false"
+                aria-controls="mobile-menu"
+            >
                 <i class="fa fa-bars text-2xl"></i>
             </button>
         </div>
         
-        <!-- 移动端导航 -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+        <!-- 移动端导航菜单：默认隐藏，点击按钮展开 -->
+        <div 
+            id="mobile-menu" 
+            class="hidden md:hidden bg-white shadow-lg absolute w-full"
+            aria-hidden="true"
+        >
             <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
                 <a href="/" class="font-medium text-primary py-2 hover:text-accent transition-custom">首页</a>
                 <a href="/pages/projects.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">项目</a>
@@ -75,21 +94,32 @@
     </header>
 
     <main>
-        <!-- 英雄区域 -->
+        <!-- 英雄区域：渐变背景，突出网站核心业务 -->
         <section class="bg-gradient-to-r from-primary/90 to-accent/90 text-white py-16 md:py-24">
             <div class="container mx-auto px-4">
                 <div class="max-w-3xl mx-auto text-center">
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-shadow">嵌入式系统开发</h1>
                     <p class="text-xl md:text-2xl mb-8 opacity-90">专注于 STM32、ESP32、RP2040、RP235x 等微控制器开发</p>
+                    <!-- 行动号召按钮组：主次分明 -->
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <a href="/pages/projects.html" class="bg-white text-primary font-medium px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-custom">查看项目</a>
-                        <a href="/pages/contact.html" class="bg-transparent border-2 border-white text-white font-medium px-6 py-3 rounded-lg hover:bg-white/10 transition-custom">联系我</a>
+                        <a 
+                            href="/pages/projects.html" 
+                            class="bg-white text-primary font-medium px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-custom"
+                        >
+                            查看项目
+                        </a>
+                        <a 
+                            href="/pages/contact.html" 
+                            class="bg-transparent border-2 border-white text-white font-medium px-6 py-3 rounded-lg hover:bg-white/10 transition-custom"
+                        >
+                            联系我
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 技能区域 -->
+        <!-- 技能区域：展示核心编程语言 -->
         <section class="py-16 bg-white">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-12">
@@ -97,29 +127,45 @@
                     <p class="text-gray-600 max-w-2xl mx-auto">精通嵌入式开发常用编程语言，能够根据项目需求选择最合适的技术栈</p>
                 </div>
                 
+                <!-- 编程语言卡片：响应式网格布局 -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                    <!-- C语言 -->
+                    <!-- C语言卡片 -->
                     <div class="bg-gray-50 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-custom">
                         <div class="w-24 h-24 mx-auto mb-4 bg-secondary/30 rounded-full flex items-center justify-center">
-                            <img src="/assets/images/logo_c.png" alt="C语言标志" class="w-16 h-16 object-contain skill-icon">
+                            <img 
+                                src="/assets/images/logo_c.png" 
+                                alt="C语言标志" 
+                                class="w-16 h-16 object-contain skill-icon"
+                                loading="lazy"  <!-- 延迟加载：提升初始加载速度 -->
+                            >
                         </div>
                         <h3 class="text-xl font-semibold mb-2">C语言</h3>
                         <p class="text-gray-600">微控制器固件开发的基础，高效、直接访问硬件，广泛应用于各种嵌入式系统</p>
                     </div>
                     
-                    <!-- Rust -->
+                    <!-- Rust卡片 -->
                     <div class="bg-gray-50 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-custom">
                         <div class="w-24 h-24 mx-auto mb-4 bg-primary/30 rounded-full flex items-center justify-center">
-                            <img src="/assets/images/logo_rust.png" alt="Rust语言标志" class="w-16 h-16 object-contain skill-icon">
+                            <img 
+                                src="/assets/images/logo_rust.png" 
+                                alt="Rust语言标志" 
+                                class="w-16 h-16 object-contain skill-icon"
+                                loading="lazy"
+                            >
                         </div>
                         <h3 class="text-xl font-semibold mb-2">Rust</h3>
                         <p class="text-gray-600">系统级编程语言，提供内存安全和高性能，适合开发可靠的嵌入式应用</p>
                     </div>
                     
-                    <!-- Python -->
+                    <!-- Python卡片 -->
                     <div class="bg-gray-50 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-custom">
                         <div class="w-24 h-24 mx-auto mb-4 bg-accent/30 rounded-full flex items-center justify-center">
-                            <img src="/assets/images/logo_python.png" alt="Python语言标志" class="w-16 h-16 object-contain skill-icon">
+                            <img 
+                                src="/assets/images/logo_python.png" 
+                                alt="Python语言标志" 
+                                class="w-16 h-16 object-contain skill-icon"
+                                loading="lazy"
+                            >
                         </div>
                         <h3 class="text-xl font-semibold mb-2">Python</h3>
                         <p class="text-gray-600">简洁易用的脚本语言，适合快速原型开发、测试和嵌入式系统的上层控制逻辑</p>
@@ -128,7 +174,7 @@
             </div>
         </section>
 
-        <!-- 芯片区域 -->
+        <!-- 芯片区域：展示常用微控制器 -->
         <section class="py-16 bg-gray-50">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-12">
@@ -136,32 +182,34 @@
                     <p class="text-gray-600 max-w-2xl mx-auto">丰富的微控制器开发经验，能够根据项目需求选择最合适的硬件平台</p>
                 </div>
                 
+                <!-- 微控制器卡片组：响应式网格，从小到大适配不同屏幕 -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-                    <!-- STM32 -->
+                    <!-- STM32卡片 -->
                     <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-custom border-t-4 border-primary">
                         <h3 class="text-lg font-semibold mb-2">STM32</h3>
                         <p class="text-gray-600 text-sm">意法半导体32位ARM微控制器，性能强大，外设丰富，适合工业控制</p>
                     </div>
                     
-                    <!-- ESP32 -->
+                    <!-- ESP32卡片 -->
                     <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-custom border-t-4 border-secondary">
                         <h3 class="text-lg font-semibold mb-2">ESP32</h3>
                         <p class="text-gray-600 text-sm">乐鑫Wi-Fi+蓝牙双模微控制器，性价比高，适合物联网应用开发</p>
                     </div>
                     
-                    <!-- RP2040 -->
+                    <!-- RP2040卡片 -->
                     <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-custom border-t-4 border-accent">
                         <h3 class="text-lg font-semibold mb-2">RP2040</h3>
                         <p class="text-gray-600 text-sm">树莓派基金会微控制器，双核Cortex-M0+，灵活的PIO外设</p>
                     </div>
                     
-                    <!-- RP235x -->
+                    <!-- RP235x卡片 -->
                     <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-custom border-t-4 border-primary">
                         <h3 class="text-lg font-semibold mb-2">RP235x</h3>
                         <p class="text-gray-600 text-sm">RP2040升级版，更高性能，增加神经网络加速器，适合AI边缘计算</p>
                     </div>
                 </div>
                 
+                <!-- 查看更多链接：引导用户深入了解 -->
                 <div class="text-center mt-10">
                     <a href="/pages/chips.html" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom">
                         了解更多芯片 <i class="fa fa-arrow-right ml-2"></i>
@@ -170,7 +218,7 @@
             </div>
         </section>
 
-        <!-- 项目预览 -->
+        <!-- 项目预览区域：展示精选项目 -->
         <section class="py-16 bg-white">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-12">
@@ -178,8 +226,9 @@
                     <p class="text-gray-600 max-w-2xl mx-auto">展示我的嵌入式开发项目，涵盖多种微控制器和编程语言</p>
                 </div>
                 
+                <!-- 项目卡片组：双列布局，移动端单列 -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    <!-- 项目1 -->
+                    <!-- 项目1：环境监测系统 -->
                     <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-custom">
                         <div class="h-48 bg-primary/20 flex items-center justify-center">
                             <span class="text-primary font-medium">STM32 传感器节点</span>
@@ -187,6 +236,7 @@
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">环境监测系统</h3>
                             <p class="text-gray-600 mb-4">基于STM32的多传感器数据采集系统，支持温湿度、光照和空气质量监测</p>
+                            <!-- 项目标签：直观展示技术栈 -->
                             <div class="flex flex-wrap gap-2 mb-4">
                                 <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">STM32</span>
                                 <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">C</span>
@@ -196,7 +246,7 @@
                         </div>
                     </div>
                     
-                    <!-- 项目2 -->
+                    <!-- 项目2：智能家居控制器 -->
                     <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-custom">
                         <div class="h-48 bg-secondary/20 flex items-center justify-center">
                             <span class="text-primary font-medium">ESP32 物联网设备</span>
@@ -204,6 +254,7 @@
                         <div class="p-6">
                             <h3 class="text-xl font-semibold mb-2">智能家居控制器</h3>
                             <p class="text-gray-600 mb-4">基于ESP32的智能家居控制中心，支持Wi-Fi连接和多种家电控制</p>
+                            <!-- 项目标签 -->
                             <div class="flex flex-wrap gap-2 mb-4">
                                 <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">ESP32</span>
                                 <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">Python</span>
@@ -214,8 +265,12 @@
                     </div>
                 </div>
                 
+                <!-- 行动号召按钮：引导查看所有项目 -->
                 <div class="text-center mt-10">
-                    <a href="/pages/projects.html" class="inline-block bg-primary text-white font-medium px-6 py-3 rounded-lg shadow hover:bg-primary/90 transition-custom">
+                    <a 
+                        href="/pages/projects.html" 
+                        class="inline-block bg-primary text-white font-medium px-6 py-3 rounded-lg shadow hover:bg-primary/90 transition-custom"
+                    >
                         浏览所有项目
                     </a>
                 </div>
@@ -223,15 +278,18 @@
         </section>
     </main>
 
-    <!-- 页脚 -->
+    <!-- 页脚：深色背景，包含网站信息和链接 -->
     <footer class="bg-gray-800 text-white py-10">
         <div class="container mx-auto px-4">
+            <!-- 页脚内容网格：三列布局，移动端单列 -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 网站简介 -->
                 <div>
                     <h3 class="text-xl font-bold mb-4 text-primary">EmbeddedLab</h3>
                     <p class="text-gray-400">专注于嵌入式系统开发，分享微控制器项目和技术经验</p>
                 </div>
                 
+                <!-- 快速链接 -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4">快速链接</h3>
                     <ul class="space-y-2 text-gray-400">
@@ -243,6 +301,7 @@
                     </ul>
                 </div>
                 
+                <!-- 联系方式 -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4">联系我</h3>
                     <ul class="space-y-2 text-gray-400">
@@ -252,12 +311,14 @@
                 </div>
             </div>
             
+            <!-- 版权信息 -->
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
                 <p>&copy; 2025 EmbeddedLab. 保留所有权利。</p>
             </div>
         </div>
     </footer>
 
+    <!-- 引入自定义脚本：处理交互逻辑（如移动端菜单） -->
     <script src="/assets/js/scripts.js"></script>
 </body>
 </html>
