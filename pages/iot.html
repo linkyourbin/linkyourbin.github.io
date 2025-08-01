@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>物联网方案 - linkyourbin嵌入式开发实验室</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#65B7C9',
+            secondary: '#F8C8DC',
+            accent: '#9D65C9',
+          },
+          fontFamily: {
+            sans: ['Inter', 'PingFang SC', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .transition-custom {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .solution-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .solution-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      .protocol-badge {
+        @apply inline-block px-3 py-1 rounded-full text-xs font-medium;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <!-- 主导航栏 -->
+  <header class="sticky top-0 z-50 bg-white shadow-md transition-custom">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="/" class="flex items-center space-x-2" aria-label="返回首页">
+        <span class="text-2xl font-bold text-primary">linkyourbin</span>
+      </a>
+      
+      <!-- 桌面主导航 -->
+      <nav class="hidden md:flex space-x-8" aria-label="主导航">
+        <a href="/" class="font-medium text-gray-600 hover:text-primary transition-custom">首页</a>
+        <a href="/pages/projects.html" class="font-medium text-gray-600 hover:text-primary transition-custom">项目</a>
+        <a href="/pages/chips.html" class="font-medium text-gray-600 hover:text-primary transition-custom">芯片</a>
+        <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-custom">关于</a>
+        <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-custom">联系</a>
+      </nav>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none" 
+              aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">
+        <i class="fa fa-bars text-2xl"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端主导航 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full transition-custom" aria-hidden="true">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="/" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">首页</a>
+        <a href="/pages/projects.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">项目</a>
+        <a href="/pages/chips.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">芯片</a>
+        <a href="/pages/about.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">关于</a>
+        <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">联系</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 二级导航栏 -->
+  <div class="bg-primary/20 border-b-2 border-primary py-3 shadow-md">
+    <div class="container mx-auto px-4">
+      <nav class="hidden md:flex space-x-8" aria-label="二级导航">
+        <a href="/pages/tut.html" class="text-base font-medium text-gray-600 hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-graduation-cap mr-2"></i>嵌入式教程
+        </a>
+        <a href="/pages/tools.html" class="text-base font-medium text-gray-600 hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-wrench mr-2"></i>开发工具
+        </a>
+        <a href="/pages/sensors.html" class="text-base font-medium text-gray-600 hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-microchip mr-2"></i>传感器应用
+        </a>
+        <a href="/pages/iot.html" class="text-base font-medium text-accent hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-wifi mr-2"></i>物联网方案
+        </a>
+        <a href="/pages/open_source_projects.html" class="text-base font-medium text-gray-600 hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-code-fork mr-2"></i>开源项目
+        </a>
+      </nav>
+      
+      <!-- 移动端二级导航下拉菜单 -->
+      <div class="md:hidden">
+        <button id="submenu-button" class="w-full text-left flex justify-between items-center text-base font-medium text-primary py-2">
+          <span><i class="fa fa-th-list mr-2"></i>导航菜单</span>
+          <i class="fa fa-chevron-down transition-transform duration-300"></i>
+        </button>
+        <div id="submenu" class="hidden mt-2 bg-white rounded-lg shadow-md p-2 absolute left-0 right-0 mx-4 z-50">
+          <a href="/pages/tut.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+            <i class="fa fa-graduation-cap mr-2"></i>嵌入式教程
+          </a>
+          <a href="/pages/tools.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+            <i class="fa fa-wrench mr-2"></i>开发工具
+          </a>
+          <a href="/pages/sensors.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+            <i class="fa fa-microchip mr-2"></i>传感器应用
+          </a>
+          <a href="/pages/iot.html" class="block px-4 py-2 text-accent hover:bg-primary/10 rounded">
+            <i class="fa fa-wifi mr-2"></i>物联网方案
+          </a>
+          <a href="/pages/open_source_projects.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+            <i class="fa fa-code-fork mr-2"></i>开源项目
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="py-12">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800">物联网解决方案</h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">基于嵌入式技术的物联网解决方案，连接物理世界与数字世界</p>
+      </div>
+      
+      <!-- 物联网架构概述 -->
+      <div class="bg-white rounded-xl shadow-md p-6 md:p-8 mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">物联网系统架构</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-primary/5 rounded-lg p-6 border-l-4 border-primary">
+            <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mb-4">
+              <i class="fa fa-microchip text-primary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">感知层</h3>
+            <p class="text-gray-600">由各类传感器和执行器组成，负责采集物理世界的数据和执行控制命令</p>
+          </div>
+          
+          <div class="bg-secondary/5 rounded-lg p-6 border-l-4 border-secondary">
+            <div class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center mb-4">
+              <i class="fa fa-wifi text-secondary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">网络层</h3>
+            <p class="text-gray-600">负责数据传输，包括各类无线和有线通信技术，实现设备互联互通</p>
+          </div>
+          
+          <div class="bg-accent/5 rounded-lg p-6 border-l-4 border-accent">
+            <div class="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mb-4">
+              <i class="fa fa-cloud text-accent text-xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">应用层</h3>
+            <p class="text-gray-600">数据处理和应用展示，包括云平台、数据分析和用户界面</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 物联网解决方案 -->
+      <h2 class="text-2xl font-bold mb-8 text-gray-800">典型解决方案</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- 方案1 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md solution-card">
+          <div class="h-48 bg-primary/10 relative">
+            <div class="absolute inset-0 flex items-center justify-center p-6">
+              <i class="fa fa-home text-8xl text-primary/70"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-3">智能家居系统</h3>
+            <p class="text-gray-600 mb-4">基于ESP32和STM32的智能家居解决方案，实现灯光、家电、安防等设备的智能控制和远程管理</p>
+            
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">采用技术</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="protocol-badge bg-primary/20 text-primary">Wi-Fi</span>
+                <span class="protocol-badge bg-secondary/20 text-gray-700">蓝牙</span>
+                <span class="protocol-badge bg-accent/20 text-gray-700">MQTT</span>
+                <span class="protocol-badge bg-gray-200 text-gray-700">ESP32</span>
+              </div>
+            </div>
+            
+            <a href="/pages/projects.html#smart-home" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom">
+              查看详情 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 方案2 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md solution-card">
+          <div class="h-48 bg-secondary/10 relative">
+            <div class="absolute inset-0 flex items-center justify-center p-6">
+              <i class="fa fa-leaf text-8xl text-secondary/70"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-3">智慧农业监测</h3>
+            <p class="text-gray-600 mb-4">基于LoRa和NB-IoT的农业环境监测方案，实时采集土壤湿度、空气温湿度、光照等数据，实现精准灌溉</p>
+            
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">采用技术</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="protocol-badge bg-primary/20 text-primary">LoRa</span>
+                <span class="protocol-badge bg-secondary/20 text-gray-700">NB-IoT</span>
+                <span class="protocol-badge bg-accent/20 text-gray-700">STM32L</span>
+                <span class="protocol-badge bg-gray-200 text-gray-700">低功耗</span>
+              </div>
+            </div>
+            
+            <a href="/pages/projects.html#smart-agriculture" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom">
+              查看详情 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 方案3 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md solution-card">
+          <div class="h-48 bg-accent/10 relative">
+            <div class="absolute inset-0 flex items-center justify-center p-6">
+              <i class="fa fa-medkit text-8xl text-accent/70"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-3">健康监测设备</h3>
+            <p class="text-gray-600 mb-4">可穿戴健康监测方案，实时监测心率、血氧、运动状态等数据，通过蓝牙传输到手机APP</p>
+            
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">采用技术</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="protocol-badge bg-primary/20 text-primary">BLE</span>
+                <span class="protocol-badge bg-secondary/20 text-gray-700">nRF52840</span>
+                <span class="protocol-badge bg-accent/20 text-gray-700">低功耗设计</span>
+                <span class="protocol-badge bg-gray-200 text-gray-700">健康传感器</span>
+              </div>
+            </div>
+            
+            <a href="/pages/projects.html#health-monitor" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom">
+              查看详情 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 方案4 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md solution-card">
+          <div class="h-48 bg-primary/10 relative">
+            <div class="absolute inset-0 flex items-center justify-center p-6">
+              <i class="fa fa-industry text-8xl text-primary/70"></i>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-3">工业物联网网关</h3>
+            <p class="text-gray-600 mb-4">工业设备数据采集网关，支持Modbus、CAN等工业总线协议，实现工业设备的远程监控和管理</p>
+            
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">采用技术</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="protocol-badge bg-primary/20 text-primary">Ethernet</span>
+                <span class="protocol-badge bg-secondary/20 text-gray-700">Modbus</span>
+                <span class="protocol-badge bg-accent/20 text-gray-700">CAN</span>
+                <span class="protocol-badge bg-gray-200 text-gray-700">STM32H7</span>
+              </div>
+            </div>
+            
+            <a href="/pages/projects.html#industrial-gateway" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom">
+              查看详情 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 物联网通信协议 -->
+      <div class="bg-white rounded-xl shadow-md p-6 md:p-8 mt-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">常用物联网通信协议</h2>
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr>
+                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">协议</th>
+                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">特点</th>
+                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">应用场景</th>
+                <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">常用芯片</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-primary">Wi-Fi</td>
+                <td class="px-6 py-4 text-sm text-gray-600">高速率，覆盖范围中等，功耗较高</td>
+                <td class="px-6 py-4 text-sm text-gray-600">智能家居、网关设备</td>
+                <td class="px-6 py-4 text-sm text-gray-600">ESP32、ESP8266</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-primary">蓝牙/BLE</td>
+                <td class="px-6 py-4 text-sm text-gray-600">短距离，低功耗，易配对</td>
+                <td class="px-6 py-4 text-sm text-gray-600">可穿戴设备、近距离通信</td>
+                <td class="px-6 py-4 text-sm text-gray-600">nRF52840、ESP32</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-primary">LoRa</td>
+                <td class="px-6 py-4 text-sm text-gray-600">远距离，低速率，超低功耗</td>
+                <td class="px-6 py-4 text-sm text-gray-600">农业监测、智慧城市</td>
+                <td class="px-6 py-4 text-sm text-gray-600">SX1276、STM32WLE5</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-primary">NB-IoT</td>
+                <td class="px-6 py-4 text-sm text-gray-600">广覆盖，低功耗，需运营商网络</td>
+                <td class="px-6 py-4 text-sm text-gray-600">智能表计、资产追踪</td>
+                <td class="px-6 py-4 text-sm text-gray-600">BC26、SIM7020</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-gray-800 text-white py-10 mt-16">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4 text-primary">linkyourbin</h3>
+          <p class="text-gray-400">专注嵌入式系统开发，热衷于分享STM32、ESP32等微控制器的实战项目与技术经验，致力于为初学者提供清晰易懂的学习路径。</p>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">快速链接</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="/" class="hover:text-primary transition-custom">首页</a></li>
+            <li><a href="/pages/projects.html" class="hover:text-primary transition-custom">项目</a></li>
+            <li><a href="/pages/chips.html" class="hover:text-primary transition-custom">芯片</a></li>
+            <li><a href="/pages/about.html" class="hover:text-primary transition-custom">关于</a></li>
+            <li><a href="/pages/contact.html" class="hover:text-primary transition-custom">联系</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">联系我</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li class="flex items-center"><i class="fa fa-envelope-o mr-2 text-primary"></i> contact@lampmud.com</li>
+            <li class="flex items-center"><i class="fa fa-github mr-2 text-primary"></i> <a href="https://github.com/linkyourbin" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-custom hover:underline">github.com/linkyourbin</a></li>
+            <li class="flex items-center"><i class="fa fa-weixin mr-2 text-primary"></i> bin0ZZA</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
+        <p>&copy; 2025 linkyourbin. 保留所有权利。</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 交互脚本 -->
+  <script>
+    // 移动端菜单切换
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuButton.addEventListener('click', () => {
+      const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+      mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.setAttribute('aria-hidden', isExpanded);
+      
+      // 切换图标
+      const icon = mobileMenuButton.querySelector('i');
+      if (isExpanded) {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      } else {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      }
+    });
+
+    // 移动端二级导航菜单切换
+    const submenuButton = document.getElementById('submenu-button');
+    const submenu = document.getElementById('submenu');
+    
+    if (submenuButton && submenu) {
+      submenuButton.addEventListener('click', () => {
+        submenu.classList.toggle('hidden');
+        const icon = submenuButton.querySelector('i');
+        icon.classList.toggle('fa-chevron-up');
+        icon.classList.toggle('fa-chevron-down');
+      });
+    }
+
+    // 导航栏滚动效果
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('py-2', 'shadow-lg');
+        header.classList.remove('py-3', 'shadow-md');
+      } else {
+        header.classList.add('py-3', 'shadow-md');
+        header.classList.remove('py-2', 'shadow-lg');
+      }
+    });
+  </script>
+</body>
+</html>
