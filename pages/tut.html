@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <!-- 视口配置：优化移动端显示，禁止缩放 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>嵌入式开发教程 - linkyourbin</title>
+  <!-- 引入外部资源 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- 自定义Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#65B7C9',   // 主色调：浅蓝色
+            secondary: '#F8C8DC', // 辅助色：浅粉色
+            accent: '#9D65C9',    // 强调色：粉紫色
+          },
+          fontFamily: {
+            sans: ['Inter', 'PingFang SC', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- 自定义样式 -->
+  <style type="text/tailwindcss">
+    .text-shadow {
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .transition-custom {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .skill-icon {
+      transition: transform 0.3s ease;
+    }
+    .skill-icon:hover {
+      transform: scale(1.1);
+    }
+    /* 平滑滚动 */
+    html {
+      scroll-behavior: smooth;
+    }
+    /* 教程步骤样式 */
+    .tutorial-step {
+      scroll-margin-top: 120px; /* 考虑两个导航栏的高度 */
+    }
+    .step-number {
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <!-- 主导航栏 -->
+  <header class="sticky top-0 z-50 bg-white shadow-md transition-custom">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="/" class="flex items-center space-x-2" aria-label="返回首页">
+        <span class="text-2xl font-bold text-primary">linkyourbin</span>
+      </a>
+      
+      <!-- 桌面主导航 -->
+      <nav class="hidden md:flex space-x-8" aria-label="主导航">
+        <a href="/" class="font-medium text-gray-600 hover:text-primary transition-custom">首页</a>
+        <a href="/pages/projects.html" class="font-medium text-gray-600 hover:text-primary transition-custom">项目</a>
+        <a href="/pages/chips.html" class="font-medium text-gray-600 hover:text-primary transition-custom">芯片</a>
+        <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-custom">关于</a>
+        <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-custom">联系</a>
+      </nav>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none" 
+              aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">
+        <i class="fa fa-bars text-2xl"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端主导航 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full transition-custom" aria-hidden="true">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="/" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">首页</a>
+        <a href="/pages/projects.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">项目</a>
+        <a href="/pages/chips.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">芯片</a>
+        <a href="/pages/about.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">关于</a>
+        <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">联系</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 二级导航栏 -->
+  <div class="bg-gray-100 border-b border-gray-200 py-2">
+    <div class="container mx-auto px-4">
+      <nav class="hidden md:flex space-x-6" aria-label="二级导航">
+        <a href="/pages/tut.html" class="text-sm font-medium text-accent hover:text-primary transition-custom">嵌入式教程</a>
+        <a href="#" class="text-sm font-medium text-gray-600 hover:text-primary transition-custom">开发工具</a>
+        <a href="#" class="text-sm font-medium text-gray-600 hover:text-primary transition-custom">传感器应用</a>
+        <a href="#" class="text-sm font-medium text-gray-600 hover:text-primary transition-custom">物联网方案</a>
+        <a href="#" class="text-sm font-medium text-gray-600 hover:text-primary transition-custom">开源项目</a>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+    <!-- 教程头部 -->
+    <section class="bg-gradient-to-r from-accent/90 to-primary/90 text-white py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6 text-shadow">嵌入式开发入门教程</h1>
+          <p class="text-xl opacity-90 mb-8">从零基础到实战，掌握STM32、ESP32和RP2040微控制器开发</p>
+          
+          <div class="flex flex-wrap gap-3 mb-8">
+            <span class="bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-sm">适合初学者</span>
+            <span class="bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-sm">理论+实践</span>
+            <span class="bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-sm">全平台覆盖</span>
+            <span class="bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-sm">开源资料</span>
+          </div>
+          
+          <div class="flex items-center text-white/90">
+            <div class="flex items-center mr-6">
+              <i class="fa fa-clock-o mr-2"></i>
+              <span>预计学习时间：8周</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fa fa-level-up mr-2"></i>
+              <span>难度：入门到中级</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 教程概览 -->
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-6 text-center">教程概览</h2>
+          <p class="text-gray-600 mb-8 text-center">本教程将带领你从嵌入式开发的基础知识开始，逐步掌握主流微控制器的开发方法，最终能够独立完成实际项目开发。</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="bg-gray-50 p-6 rounded-xl text-center">
+              <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa fa-book text-2xl text-primary"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">基础知识</h3>
+              <p class="text-gray-600 text-sm">了解嵌入式系统概念、硬件基础和开发环境搭建</p>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-xl text-center">
+              <div class="w-16 h-16 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa fa-microchip text-2xl text-primary"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">实战开发</h3>
+              <p class="text-gray-600 text-sm">通过实例学习三大主流微控制器的编程与应用</p>
+            </div>
+            
+            <div class="bg-gray-50 p-6 rounded-xl text-center">
+              <div class="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa fa-cogs text-2xl text-primary"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">项目实战</h3>
+              <p class="text-gray-600 text-sm">完成综合项目，将所学知识应用到实际场景中</p>
+            </div>
+          </div>
+          
+          <div class="bg-accent/10 border-l-4 border-accent p-5 rounded-r-lg">
+            <h3 class="font-semibold text-lg mb-2 flex items-center">
+              <i class="fa fa-lightbulb-o text-accent mr-2"></i> 学习建议
+            </h3>
+            <p class="text-gray-600 text-sm">建议按照教程顺序学习，每章节结束后完成对应的练习。实践是掌握嵌入式开发的关键，尽量亲手完成每个实验。所有示例代码均可在GitHub仓库获取。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 教程章节 -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-10 text-center">教程章节</h2>
+          
+          <!-- 章节导航 -->
+          <div class="bg-white p-6 rounded-xl shadow-md mb-10">
+            <h3 class="font-semibold text-lg mb-4">快速导航</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+              <a href="#chapter1" class="text-primary hover:text-accent transition-custom py-1 flex items-center">
+                <span class="bg-primary/10 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">1</span>
+                嵌入式基础
+              </a>
+              <a href="#chapter2" class="text-primary hover:text-accent transition-custom py-1 flex items-center">
+                <span class="bg-primary/10 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">2</span>
+                开发环境搭建
+              </a>
+              <a href="#chapter3" class="text-primary hover:text-accent transition-custom py-1 flex items-center">
+                <span class="bg-primary/10 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">3</span>
+                STM32开发
+              </a>
+              <a href="#chapter4" class="text-primary hover:text-accent transition-custom py-1 flex items-center">
+                <span class="bg-primary/10 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">4</span>
+                ESP32开发
+              </a>
+              <a href="#chapter5" class="text-primary hover:text-accent transition-custom py-1 flex items-center">
+                <span class="bg-primary/10 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">5</span>
+                RP2040开发
+              </a>
+              <a href="#chapter6" class="text-primary hover:text-accent transition-custom py-1 flex items-center">
+                <span class="bg-primary/10 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2">6</span>
+                综合项目实战
+              </a>
+            </div>
+          </div>
+          
+          <!-- 章节内容 -->
+          <!-- 章节1 -->
+          <div id="chapter1" class="tutorial-step bg-white p-8 rounded-xl shadow-md mb-10">
+            <div class="flex items-start mb-6">
+              <div class="step-number w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-4">1</div>
+              <div>
+                <h3 class="text-2xl font-bold mb-2">嵌入式系统基础知识</h3>
+                <p class="text-gray-600">了解嵌入式系统的概念、特点和应用场景，掌握微控制器的基本原理。</p>
+              </div>
+            </div>
+            
+            <div class="pl-14">
+              <h4 class="font-semibold text-lg mb-3 text-gray-800">学习内容：</h4>
+              <ul class="list-disc pl-5 text-gray-600 mb-6 space-y-2">
+                <li>嵌入式系统的定义与分类</li>
+                <li>微控制器与微处理器的区别</li>
+                <li>常用微控制器架构介绍（ARM Cortex-M系列）</li>
+                <li>嵌入式开发的基本流程</li>
+                <li>常用术语解释（GPIO、UART、SPI、I2C等）</li>
+              </ul>
+              
+              <h4 class="font-semibold text-lg mb-3 text-gray-800">实践任务：</h4>
+              <p class="text-gray-600 mb-4">识别身边的嵌入式设备，分析其可能使用的微控制器类型和功能特点，撰写一篇简短的分析报告。</p>
+              
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="font-semibold mb-2 flex items-center">
+                  <i class="fa fa-file-text-o text-primary mr-2"></i> 学习资料
+                </h4>
+                <ul class="space-y-1 text-gray-600">
+                  <li><a href="#" class="text-primary hover:underline">嵌入式系统入门手册.pdf</a></li>
+                  <li><a href="#" class="text-primary hover:underline">微控制器原理课件.pptx</a></li>
+                  <li><a href="#" class="text-primary hover:underline">常用总线协议详解.md</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 章节2 -->
+          <div id="chapter2" class="tutorial-step bg-white p-8 rounded-xl shadow-md mb-10">
+            <div class="flex items-start mb-6">
+              <div class="step-number w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-4">2</div>
+              <div>
+                <h3 class="text-2xl font-bold mb-2">开发环境搭建</h3>
+                <p class="text-gray-600">安装和配置嵌入式开发所需的软件工具，为后续开发做好准备。</p>
+              </div>
+            </div>
+            
+            <div class="pl-14">
+              <h4 class="font-semibold text-lg mb-3 text-gray-800">学习内容：</h4>
+              <ul class="list-disc pl-5 text-gray-600 mb-6 space-y-2">
+                <li>主流开发工具介绍（Keil MDK、STM32CubeIDE、Arduino IDE等）</li>
+                <li>STM32开发环境安装与配置</li>
+                <li>ESP32开发环境安装与配置</li>
+                <li>RP2040开发环境安装与配置</li>
+                <li>调试工具使用方法（ST-Link、J-Link）</li>
+              </ul>
+              
+              <h4 class="font-semibold text-lg mb-3 text-gray-800">实践任务：</h4>
+              <p class="text-gray-600 mb-4">根据自己的开发板类型，安装对应的开发环境，并成功编译一个简单的"Hello World"程序。</p>
+              
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="font-semibold mb-2 flex items-center">
+                  <i class="fa fa-video-camera text-primary mr-2"></i> 视频教程
+                </h4>
+                <ul class="space-y-1 text-gray-600">
+                  <li><a href="#" class="text-primary hover:underline">STM32CubeIDE安装教程</a></li>
+                  <li><a href="#" class="text-primary hover:underline">Arduino IDE配置ESP32开发环境</a></li>
+                  <li><a href="#" class="text-primary hover:underline">Raspberry Pi Pico开发环境搭建</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 章节3 -->
+          <div id="chapter3" class="tutorial-step bg-white p-8 rounded-xl shadow-md mb-10">
+            <div class="flex items-start mb-6">
+              <div class="step-number w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-4">3</div>
+              <div>
+                <h3 class="text-2xl font-bold mb-2">STM32开发入门</h3>
+                <p class="text-gray-600">学习STM32微控制器的基本编程方法，掌握GPIO、定时器、中断等核心功能。</p>
+              </div>
+            </div>
+            
+            <div class="pl-14">
+              <h4 class="font-semibold text-lg mb-3 text-gray-800">学习内容：</h4>
+              <ul class="list-disc pl-5 text-gray-600 mb-6 space-y-2">
+                <li>STM32系列微控制器介绍与选型</li>
+                <li>STM32CubeMX使用方法</li>
+                <li>GPIO配置与LED控制实验</li>
+                <li>按键输入与外部中断</li>
+                <li>定时器与PWM输出</li>
+                <li>USART串口通信</li>
+              </ul>
+              
+              <h4 class="font-semibold text-lg mb-3 text-gray-800">实战项目：</h4>
+              <p class="text-gray-600 mb-4">基于STM32开发板制作一个简单的呼吸灯系统，通过按键可以调节呼吸频率，并能通过串口输出当前状态。</p>
+              
+              <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="font-semibold mb-2 flex items-center">
+                  <i class="fa fa-code text-primary mr-2"></i> 示例代码
+                </h4>
+                <ul class="space-y-1 text-gray-600">
+                  <li><a href="https://github.com/linkyourbin/stm32-examples/tree/main/led_blink" target="_blank" class="text-primary hover:underline">LED闪烁示例</a></li>
+                  <li><a href="https://github.com/linkyourbin/stm32-examples/tree/main/uart_communication" target="_blank" class="text-primary hover:underline">串口通信示例</a></li>
+                  <li><a href="https://github.com/linkyourbin/stm32-examples/tree/main/pwm_led" target="_blank" class="text-primary hover:underline">PWM呼吸灯示例</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 章节6 -->
+          <div id="chapter6" class="tutorial-step bg-white p-8 rounded-xl shadow-md">
+            <div class="flex items-start mb-6">
+              <div class="step-number w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-4">6</div>
+              <div>
+                <h3 class="text-2xl font-bold mb-2">综合项目实战</h3>
+                <p class="text-gray-600">将所学知识应用到实际项目中，完成一个功能完整的嵌入式系统。</p>
+              </div>
+            </div>
+            
+            <div class="pl-14">
+              <h4 class="font-semibold text-lg mb-3 text-gray-800">项目介绍：</h4>
+              <p class="text-gray-600 mb-4">设计并实现一个环境监测与控制系统，功能包括：</p>
+              
+              <ul class="list-disc pl-5 text-gray-600 mb-6 space-y-2">
+                <li>温湿度、光照强度数据采集（STM32）</li>
+                <li>数据上传到云端平台（ESP32）</li>
+                <li>本地数据显示与按键控制（RP2040）</li>
+                <li>根据环境参数自动控制外设（如风扇、灯光）</li>
+                <li>手机APP远程查看与控制</li>
+              </ul>
+              
+              <h4 class="font-semibold text-lg mb-3 text-gray-800">学习成果：</h4>
+              <p class="text-gray-600 mb-6">完成本项目后，你将能够：</p>
+              
+              <ul class="list-disc pl-5 text-gray-600 mb-6 space-y-2">
+                <li>熟练使用至少一种微控制器进行开发</li>
+                <li>掌握传感器数据采集与外设控制方法</li>
+                <li>实现嵌入式设备的网络连接功能</li>
+                <li>具备独立设计简单嵌入式系统的能力</li>
+                <li>了解嵌入式项目的开发流程与调试技巧</li>
+              </ul>
+              
+              <div class="bg-accent/10 p-4 rounded-lg">
+                <h4 class="font-semibold mb-2 flex items-center">
+                  <i class="fa fa-trophy text-accent mr-2"></i> 项目展示
+                </h4>
+                <p class="text-gray-600">完成项目后，欢迎提交你的作品到我们的社区展示区，优秀作品将获得官方推荐！</p>
+                <a href="/pages/contact.html" class="inline-block mt-3 text-accent font-medium hover:text-primary transition-custom">
+                  提交作品 <i class="fa fa-arrow-right ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 学习资源 -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl font-bold mb-6">推荐学习资源</h2>
+          <p class="text-gray-600 mb-10">除了本教程内容，这些资源也能帮助你更好地学习嵌入式开发</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <a href="https://github.com/linkyourbin/embedded-resources" target="_blank" class="block bg-gray-50 p-6 rounded-xl hover:shadow-md transition-custom">
+              <div class="flex items-center justify-center h-12 mb-4">
+                <i class="fa fa-github text-3xl text-gray-700"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">GitHub资源库</h3>
+              <p class="text-gray-600 text-sm">包含各类示例代码、开发手册和项目文档</p>
+            </a>
+            
+            <a href="#" class="block bg-gray-50 p-6 rounded-xl hover:shadow-md transition-custom">
+              <div class="flex items-center justify-center h-12 mb-4">
+                <i class="fa fa-book text-3xl text-gray-700"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">推荐书籍</h3>
+              <p class="text-gray-600 text-sm">精选嵌入式开发相关书籍，从入门到进阶</p>
+            </a>
+            
+            <a href="#" class="block bg-gray-50 p-6 rounded-xl hover:shadow-md transition-custom">
+              <div class="flex items-center justify-center h-12 mb-4">
+                <i class="fa fa-graduation-cap text-3xl text-gray-700"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">在线课程</h3>
+              <p class="text-gray-600 text-sm">配套视频课程，更直观地学习开发技巧</p>
+            </a>
+            
+            <a href="/pages/contact.html" class="block bg-gray-50 p-6 rounded-xl hover:shadow-md transition-custom">
+              <div class="flex items-center justify-center h-12 mb-4">
+                <i class="fa fa-comments text-3xl text-gray-700"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2">技术社区</h3>
+              <p class="text-gray-600 text-sm">加入我们的社区，与其他开发者交流学习</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-gray-800 text-white py-10">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4 text-primary">linkyourbin</h3>
+          <p class="text-gray-400">专注嵌入式系统开发，热衷于分享STM32、ESP32等微控制器的实战项目与技术经验，致力于为初学者提供清晰易懂的学习路径。</p>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">快速链接</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="/" class="hover:text-primary transition-custom">首页</a></li>
+            <li><a href="/pages/projects.html" class="hover:text-primary transition-custom">项目</a></li>
+            <li><a href="/pages/chips.html" class="hover:text-primary transition-custom">芯片</a></li>
+            <li><a href="/pages/about.html" class="hover:text-primary transition-custom">关于</a></li>
+            <li><a href="/pages/contact.html" class="hover:text-primary transition-custom">联系</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">联系我</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li class="flex items-center"><i class="fa fa-envelope-o mr-2 text-primary"></i> contact@lampmud.com</li>
+            <li class="flex items-center"><i class="fa fa-github mr-2 text-primary"></i> <a href="https://github.com/linkyourbin" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-custom hover:underline">github.com/linkyourbin</a></li>
+            <li class="flex items-center"><i class="fa fa-weixin mr-2 text-primary"></i> bin0ZZA</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
+        <p>&copy; 2025 linkyourbin. 保留所有权利。</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 交互脚本 -->
+  <script>
+    // 移动端菜单切换
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuButton.addEventListener('click', () => {
+      const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+      mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.setAttribute('aria-hidden', isExpanded);
+      
+      // 切换图标
+      const icon = mobileMenuButton.querySelector('i');
+      if (isExpanded) {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      } else {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      }
+    });
+
+    // 导航栏滚动效果
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('py-2', 'shadow-lg');
+        header.classList.remove('py-3', 'shadow-md');
+      } else {
+        header.classList.add('py-3', 'shadow-md');
+        header.classList.remove('py-2', 'shadow-lg');
+      }
+    });
+
+    // 章节滚动高亮效果
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.tutorial-step');
+      const navLinks = document.querySelectorAll('.bg-white .grid a');
+      
+      let current = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - 150)) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('font-medium');
+        link.classList.remove('bg-primary/10');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('font-medium');
+          link.classList.add('bg-primary/10');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
