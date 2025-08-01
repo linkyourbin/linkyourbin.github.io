@@ -1,28 +1,18 @@
-# LinkYourBin
+# LinkYourBin - Embedded Systems Website
 
-这是我的个人技术网站，专注于嵌入式开发和AI技术。
+This is a personal GitHub Pages site focused on embedded systems development with:
+- STM32
+- ESP32
+- RP2040
+- RP235x
 
-## 网站结构
+Technologies:
+- Rust (Embassy async, no_std)
+- C (HAL, STM32Cube)
+- Python (Tkinter GUI, scripting tools)
 
-- `index.html` - 主页
-- `assets/` - 静态资源文件夹
-  - `css/style.css` - 样式文件
-  - `js/script.js` - JavaScript文件
-  - `images/` - 图片资源
-- `pages/` - 页面文件夹
-  - `chips.html` - 芯片页面
-  - `projects.html` - 项目页面
-  - `about.html` - 关于页面
-  - `contact.html` - 联系页面
-  - `404.html` - 404页面
+## Deployment
+Simply push this repo to a GitHub repository named `linkyourbin.github.io`. GitHub Pages will host it automatically.
 
-## 技术栈
-
-- HTML5
-- CSS3
-- JavaScript
-- Font Awesome 图标库
-
-## 部署
-
-该网站通过 GitHub Pages 部署。
+## License
+MIT
