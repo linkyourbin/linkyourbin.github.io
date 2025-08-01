@@ -24,7 +24,7 @@
         }
     </script>
     <style type="text/tailwindcss">
-        /* 移除@apply，直接使用工具类或常规CSS */
+        /* 自定义样式 */
         .text-shadow {
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -42,6 +42,29 @@
             background-color: #65B7C9;
             border-radius: 4px;
             transition: width 1s ease;
+        }
+        /* 头像样式优化 */
+        .avatar-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+            display: block;
+        }
+        /* 移动端菜单交互样式 */
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+            transform-origin: top;
+            transform: scaleY(0);
+        }
+        #mobile-menu.active {
+            transform: scaleY(1);
+            display: block;
         }
     </style>
 </head>
@@ -87,7 +110,7 @@
                 <div class="max-w-4xl mx-auto">
                     <h1 class="text-3xl md:text-5xl font-bold mb-4 text-shadow">关于我</h1>
                     <p class="text-lg md:text-xl opacity-90">linkyourbin，专注于微控制器、编程和电子技术</p>
-                </div></div>
+                </div>
             </div>
         </section>
 
@@ -98,10 +121,12 @@
                     <div class="md:w-1/3">
                         <div class="rounded-xl overflow-hidden shadow-lg mb-6 bg-gray-100 p-1">
                             <div class="bg-white p-1">
-                                <div class="bg-gray-200 aspect-square rounded-lg flex items-center justify-center">
-                                    <!-- 本地无头像图片，使用占位 -->
-                                     
-                                    <i class="fa fa-user text-6xl text-primary/50"></i>
+                                <div class="bg-gray-200 aspect-square rounded-lg overflow-hidden">
+                                    <!-- 本地头像图片 -->
+                                    <div class="avatar-container">
+                                        <img src="/assets/images/avatar.jpg" alt="个人头像" class="avatar-img" 
+                                            onerror="this.src='https://via.placeholder.com/400'; this.alt='头像加载失败'">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -128,7 +153,7 @@
                     <div class="md:w-2/3">
                         <h2 class="text-2xl md:text-3xl font-bold mb-6">你好，我是bin</h2>
                         
-                        <p class="text-gray-600 mb-6">是一名练习时常两年半的嵌入式爱好者，专注于STM32、ESP32、RP2040和新型RP235x等微控制器的开发与应用。</p>
+                        <p class="text-gray-600 mb-6">是一名练习时长两年半的嵌入式爱好者，专注于STM32、ESP32、RP2040和新型RP235x等微控制器的开发与应用。</p>
                         
                         <p class="text-gray-600 mb-6">我热衷于创建高效、高性能的嵌入式解决方案，解决实际应用中的问题。我的编程经验包括C、Rust和Python，能够根据每个项目的需求选择最合适的工具。</p>
                         
@@ -268,6 +293,39 @@
         </div>
     </footer>
 
-    <script src="/assets/js/scripts.js"></script>
+    <script>
+        // 移动端菜单交互
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                // 切换图标
+                const icon = mobileMenuButton.querySelector('i');
+                if (mobileMenu.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // 技能条动画
+            const skillBars = document.querySelectorAll('.skill-progress');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.width = entry.target.parentElement.previousElementSibling.querySelector('span:last-child').textContent;
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            skillBars.forEach(bar => {
+                observer.observe(bar);
+            });
+        });
+    </script>
 </body>
 </html>
