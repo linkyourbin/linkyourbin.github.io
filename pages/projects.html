@@ -3,284 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>项目展示 | EmbeddedLab</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#65B7C9', // 浅蓝色
-                        secondary: '#F8C8DC', // 浅粉色
-                        accent: '#9D65C9', // 粉紫色
-                        light: '#FFFFFF', // 白色
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        /* 移除@apply，直接使用工具类或常规CSS */
-        .text-shadow {
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .transition-custom {
-            transition: all 0.3s ease;
-        }
-        .project-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        .filter-active {
-            background-color: #65B7C9;
-            color: white;
-        }
-    </style>
+    <title>我的项目 - linkyourbin</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body>
     <!-- 导航栏 -->
-    <header class="sticky top-0 z-50 bg-white shadow-md">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="/" class="flex items-center space-x-2">
-                <span class="text-2xl font-bold text-primary">EmbeddedLab</span>
-            </a>
-            
-            <!-- 桌面导航 -->
-            <nav class="hidden md:flex space-x-8">
-                <a href="/" class="font-medium text-gray-600 hover:text-primary transition-custom">首页</a>
-                <a href="/pages/projects.html" class="font-medium text-primary hover:text-accent transition-custom">项目</a>
-                <a href="/pages/chips.html" class="font-medium text-gray-600 hover:text-primary transition-custom">芯片</a>
-                <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-custom">关于</a>
-                <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-custom">联系</a>
-            </nav>
-            
-            <!-- 移动端菜单按钮 -->
-            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
-                <i class="fa fa-bars text-2xl"></i>
-            </button>
-        </div>
-        
-        <!-- 移动端导航 -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
-            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
-                <a href="/" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">首页</a>
-                <a href="/pages/projects.html" class="font-medium text-primary py-2 hover:text-accent transition-custom">项目</a>
-                <a href="/pages/chips.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">芯片</a>
-                <a href="/pages/about.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">关于</a>
-                <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">联系</a>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html">linkyourbin</a>
             </div>
-        </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="about.html">关于</a></li>
+                <li><a href="chips.html">芯片</a></li>
+                <li><a href="projects.html" class="active">项目</a></li>
+                <li><a href="contact.html">联系</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
     </header>
 
-    <main>
-        <!-- 页面标题 -->
-        <section class="bg-gradient-to-r from-primary/90 to-accent/90 text-white py-12 md:py-16">
-            <div class="container mx-auto px-4">
-                <div class="max-w-4xl mx-auto">
-                    <h1 class="text-3xl md:text-5xl font-bold mb-4 text-shadow">项目展示</h1>
-                    <p class="text-lg md:text-xl opacity-90">探索我的嵌入式开发项目，涵盖多种微控制器和编程语言</p>
+    <!-- 项目内容 -->
+    <section class="projects-section">
+        <h1>我的嵌入式项目</h1>
+        <p class="section-description">以下是我开发的一些嵌入式项目，涵盖了STM32、ESP32、Rp2040和RP235x等平台。</p>
+        
+        <div class="project-filters">
+            <button class="filter-btn active" data-filter="all">所有项目</button>
+            <button class="filter-btn" data-filter="stm32">STM32</button>
+            <button class="filter-btn" data-filter="esp32">ESP32</button>
+            <button class="filter-btn" data-filter="rp2040">Rp2040</button>
+            <button class="filter-btn" data-filter="rp235x">RP235x</button>
+        </div>
+        
+        <div class="project-details" id="stm32-env">
+            <div class="project-header">
+                <div class="project-icon">
+                    <i class="fas fa-temperature-high fa-4x"></i>
                 </div>
-            </div>
-        </section>
-
-        <!-- 项目过滤 -->
-        <section class="py-8 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="max-w-5xl mx-auto">
-                    <div class="flex flex-wrap gap-2 justify-center mb-4">
-                        <button class="filter-btn filter-active px-4 py-2 rounded-full text-sm font-medium transition-custom" data-filter="all">全部项目</button>
-                        <button class="filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-filter="stm32">STM32</button>
-                        <button class="filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-filter="esp32">ESP32</button>
-                        <button class="filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-filter="rp2040">RP2040</button>
-                        <button class="filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-filter="rp235x">RP235x</button>
+                <div class="project-title">
+                    <h2>STM32环境监测系统</h2>
+                    <div class="project-tags">
+                        <span class="tag stm32">STM32</span>
+                        <span class="tag sensor">传感器</span>
+                        <span class="tag c">C语言</span>
                     </div>
-                    
-                    <div class="flex flex-wrap gap-2 justify-center">
-                        <button class="lang-filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-lang="all">所有语言</button>
-                        <button class="lang-filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-lang="c">
-                            <img src="/assets/images/logo_c.png" alt="C语言" class="inline-block w-4 h-4 mr-1"> C
-                        </button>
-                        <button class="lang-filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-lang="rust">
-                            <img src="/assets/images/logo_rust.png" alt="Rust语言" class="inline-block w-4 h-4 mr-1"> Rust
-                        </button>
-                        <button class="lang-filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-lang="python">
-                            <img src="/assets/images/logo_python.png" alt="Python语言" class="inline-block w-4 h-4 mr-1"> Python
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 项目列表 -->
-        <section class="py-12 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <!-- 项目1 -->
-                    <div class="project-card bg-white rounded-xl overflow-hidden shadow-md" data-category="stm32" data-language="c">
-                        <div class="h-48 bg-primary/20 flex items-center justify-center">
-                            <span class="text-primary font-medium">STM32 传感器节点</span>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">环境监测系统</h3>
-                            <p class="text-gray-600 mb-4">基于STM32的多传感器数据采集系统，支持温湿度、光照和空气质量监测</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">STM32</span>
-                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">C</span>
-                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">传感器</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-500">完成于 2025年3月</span>
-                                <a href="#" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 项目2 -->
-                    <div class="project-card bg-white rounded-xl overflow-hidden shadow-md" data-category="esp32" data-language="python">
-                        <div class="h-48 bg-secondary/20 flex items-center justify-center">
-                            <span class="text-primary font-medium">ESP32 物联网设备</span>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">智能家居控制器</h3>
-                            <p class="text-gray-600 mb-4">基于ESP32的智能家居控制中心，支持Wi-Fi连接和多种家电控制</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">ESP32</span>
-                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">Python</span>
-                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">物联网</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-500">完成于 2025年5月</span>
-                                <a href="#" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 项目3 -->
-                    <div class="project-card bg-white rounded-xl overflow-hidden shadow-md" data-category="rp2040" data-language="rust">
-                        <div class="h-48 bg-accent/20 flex items-center justify-center">
-                            <span class="text-primary font-medium">RP2040 开发板</span>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">游戏手柄控制器</h3>
-                            <p class="text-gray-600 mb-4">基于RP2040的自定义游戏手柄，使用Rust开发，支持USB和蓝牙连接</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">RP2040</span>
-                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">Rust</span>
-                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">游戏外设</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-500">完成于 2025年7月</span>
-                                <a href="#" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 项目4 -->
-                    <div class="project-card bg-white rounded-xl overflow-hidden shadow-md" data-category="rp235x" data-language="rust">
-                        <div class="h-48 bg-primary/20 flex items-center justify-center">
-                            <span class="text-primary font-medium">RP235x AI项目</span>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">图像识别系统</h3>
-                            <p class="text-gray-600 mb-4">基于RP235x的嵌入式图像识别系统，利用NPU加速实现实时物体检测</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">RP235x</span>
-                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">Rust</span>
-                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">AI识别</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-500">完成于 2025年9月</span>
-                                <a href="#" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 项目5 -->
-                    <div class="project-card bg-white rounded-xl overflow-hidden shadow-md" data-category="stm32" data-language="c">
-                        <div class="h-48 bg-secondary/20 flex items-center justify-center">
-                            <span class="text-primary font-medium">STM32 工业控制</span>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">电机控制系统</h3>
-                            <p class="text-gray-600 mb-4">基于STM32的高精度电机控制系统，支持多种控制算法和实时监控</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">STM32</span>
-                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">C</span>
-                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">工业控制</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-500">完成于 2025年11月</span>
-                                <a href="#" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 项目6 -->
-                    <div class="project-card bg-white rounded-xl overflow-hidden shadow-md" data-category="esp32" data-language="python">
-                        <div class="h-48 bg-accent/20 flex items-center justify-center">
-                            <span class="text-primary font-medium">ESP32 网关</span>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">LoRaWAN网关</h3>
-                            <p class="text-gray-600 mb-4">基于ESP32和LoRa模块的物联网网关，支持多种传感器网络接入</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">ESP32</span>
-                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">Python</span>
-                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">LoRaWAN</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-500">完成于 2024年1月</span>
-                                <a href="#" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- 页脚 -->
-    <footer class="bg-gray-800 text-white py-10">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4 text-primary">EmbeddedLab</h3>
-                    <p class="text-gray-400">专注于嵌入式系统开发，分享微控制器项目和技术经验</p>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">快速链接</h3>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="/" class="hover:text-primary transition-custom">首页</a></li>
-                        <li><a href="/pages/projects.html" class="hover:text-primary transition-custom">项目</a></li>
-                        <li><a href="/pages/chips.html" class="hover:text-primary transition-custom">芯片</a></li>
-                        <li><a href="/pages/about.html" class="hover:text-primary transition-custom">关于</a></li>
-                        <li><a href="/pages/contact.html" class="hover:text-primary transition-custom">联系</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">联系我</h3>
-                    <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-center"><i class="fa fa-envelope-o mr-2 text-primary"></i> contact@lampmud@163.com</li>
-                        <li class="flex items-center"><i class="fa fa-github mr-2 text-primary"></i> github.com/linkyourbin</li>
-                    </ul>
                 </div>
             </div>
             
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
-                <p>&copy; 2024 EmbeddedLab. 保留所有权利。</p>
+            <div class="project-content">
+                <div class="project-gallery">
+                    <!-- 这里可以放置项目图片，暂时用图标替代 -->
+                    <div class="gallery-item"><i class="fas fa-camera fa-3x"></i></div>
+                    <div class="gallery-item"><i class="fas fa-camera fa-3x"></i></div>
+                    <div class="gallery-item"><i class="fas fa-camera fa-3x"></i></div>
+                </div>
+                
+                <div class="project-info">
+                    <h3>项目概述</h3>
+                    <p>这是一个基于STM32F407的环境监测系统，能够实时监测温度、湿度、空气质量和光照强度，并通过OLED屏幕显示数据。系统还支持数据存储和USB数据导出功能。</p>
+                    
+                    <h3>技术细节</h3>
+                    <ul>
+                        <li>主控制器：STM32F407IGH6</li>
+                        <li>传感器：DHT11（温湿度）、MQ-135（空气质量）、BH1750（光照）</li>
+                        <li>显示：0.96寸OLED显示屏（I2C接口）</li>
+                        <li>存储：SD卡模块（SPI接口）</li>
+                        <li>通信：USB虚拟串口</li>
+                        <li>开发环境：STM32CubeIDE</li>
+                    </ul>
+                    
+                    <h3>功能特点</h3>
+                    <ul>
+                        <li>实时数据采集与显示</li>
+                        <li>数据定时存储到SD卡</li>
+                        <li>USB接口数据导出与配置</li>
+                        <li>超阈值报警功能</li>
+                        <li>低功耗模式支持</li>
+                    </ul>
+                    
+                    <div class="project-links">
+                        <a href="#" class="btn repo-btn"><i class="fab fa-github"></i> 查看代码</a>
+                        <a href="#" class="btn demo-btn"><i class="fas fa-play-circle"></i> 演示视频</a>
+                    </div>
+                </div>
             </div>
+        </div>
+        
+        <div class="project-details" id="esp32-smart">
+            <div class="project-header">
+                <div class="project-icon">
+                    <i class="fas fa-lightbulb fa-4x"></i>
+                </div>
+                <div class="project-title">
+                    <h2>ESP32智能家居控制系统</h2>
+                    <div class="project-tags">
+                        <span class="tag esp32">ESP32</span>
+                        <span class="tag iot">物联网</span>
+                        <span class="tag c">C语言</span>
+                        <span class="tag python">Python</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-content">
+                <div class="project-gallery">
+                    <!-- 这里可以放置项目图片，暂时用图标替代 -->
+                    <div class="gallery-item"><i class="fas fa-camera fa-3x"></i></div>
+                    <div class="gallery-item"><i class="fas fa-camera fa-3x"></i></div>
+                    <div class="gallery-item"><i class="fas fa-camera fa-3x"></i></div>
+                </div>
+                
+                <div class="project-info">
+                    <h3>项目概述</h3>
+                    <p>这是一个基于ESP32的智能家居控制系统，支持灯光、窗帘和温度调节。系统通过Wi-Fi连接互联网，可通过手机APP或语音助手（如Alexa、Google Assistant）进行控制。</p>
+                    
+                    <h3>技术细节</h3>
+                    <ul>
+                        <li>主控制器：ESP32-WROOM-32</li>
+                        <li>通信：Wi-Fi、蓝牙</li>
+                        <li>控制方式：继电器、PWM调光</li>
+                        <li>手机APP：基于Blynk平台</li>
+                        <li>语音控制：集成Amazon Alexa</li>
+                        <li>开发环境：PlatformIO</li>
+                    </ul>
+                    
+                    <h3>功能特点</h3>
+                    <ul>
+                        <li>远程控制家电设备</li>
+                        <li>定时任务与场景模式</li>
+                        <li>语音控制集成</li>
+                        <li>能耗监测</li>
+                        <li>OTA固件升级</li>
+                    </ul>
+                    
+                    <div class="project-links">
+                        <a href="#" class="btn repo-btn"><i class="fab fa-github"></i> 查看代码</a>
+                        <a href="#" class="btn demo-btn"><i class="fas fa-play-circle"></i> 演示视频</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="project-details" id="rp2040-game">
+            <div class="project-header">
+                <div class="project-icon">
+                    <i class="fas fa-gamepad fa-4x"></i>
+                </div>
+                <div class="project-title">
+                    <h2>Rp2040便携式游戏开发板</h2>
+                    <div class="project-tags">
+                        <span class="tag rp2040">Rp2040</span>
+                        <span class="tag game">游戏开发</span>
+                        <span class="tag c">C语言</span>
+                        <span class="tag python">MicroPython</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-content">
+                <div class="project-gallery">
+                    <!-- 这里可以放置项目图片，暂时用图标替代 -->
+                    <div class="gallery-item"><i class="fas fa-camera fa-3x"></i></div>
+                    <div class="gallery-item"><i class="fas fa-camera fa-3x"></i></div>
+                    <div class="gallery-item"><i class="fas fa-camera fa-3x"></i></div>
+                </div>
+                
+                <div class="project-info">
+                    <h3>项目概述</h3>
+                    <p>这是一个基于Raspberry Pi Pico（Rp2040）的便携式游戏开发板，配备1.8英寸TFT显示屏和按键矩阵。该开发板支持C语言和MicroPython编程，适合学习嵌入式系统和游戏开发。</p>
+                    
+                    <h3>技术细节</h3>
+                    <ul>
+                        <li>主控制器：Rp2040（Raspberry Pi Pico）</li>
+                        <li>显示：1.8英寸TFT显示屏（160x128像素）</li>
+                        <li>输入：8按键矩阵</li>
+                        <li>电源：3.7V锂电池，支持USB充电</li>
+                        <li>扩展：I2C和SPI接口</li>
+                        <li>开发环境：Visual Studio Code + Pico SDK</li>
+                    </ul>
+                    
+                    <h3>功能特点</h3>
+                    <ul>
+                        <li>支持C和MicroPython开发</li>
+                        <li>内置多款示例游戏（贪吃蛇、俄罗斯方块等）</li>
+                        <li>低功耗设计，续航可达8小时</li>
+                        <li>可扩展传感器和其他外设</li>
+                        <li>开源硬件设计</li>
+                    </ul>
+                    
+                    <div class="project-links">
+                        <a href="#" class="btn repo-btn"><i class="fab fa-github"></i> 查看代码</a>
+                        <a href="#" class="btn demo-btn"><i class="fas fa-play-circle"></i> 演示视频</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="project-details" id="rp235x-robot">
+            <div class="project-header">
+                <div class="project-icon">
+                    <i class="fas fa-robot fa-4x"></i>
+                </div>
+                <div class="project-title">
+                    <h2>RP235x自主导航机器人</h2>
+                    <div class="project-tags">
+                        <span class="tag rp235x">RP235x</span>
+                        <span class="tag robot">机器人</span>
+                        <span class="tag rust">Rust</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-content">
+                <div class="project-gallery">
+                    <!-- 这里可以放置项目图片，暂时用图标替代 -->
+                    <div class="gallery-item"><i class="fas fa-camera fa-3x"></i></div>
+                    <div class="gallery-item"><i class="fas fa-camera fa-3x"></i></div>
+                    <div class="gallery-item"><i class="fas fa-camera fa-3x"></i></div>
+                </div>
+                
+                <div class="project-info">
+                    <h3>项目概述</h3>
+                    <p>这是一个基于最新RP2353微控制器的自主导航机器人项目。该机器人能够避开障碍物，规划路径，并通过手机APP进行远程控制。项目使用Rust语言开发，展示了RP235x系列的高性能和安全特性。</p>
+                    
+                    <h3>技术细节</h3>
+                    <ul>
+                        <li>主控制器：RP2353（双核Cortex-M33）</li>
+                        <li>传感器：超声波测距模块、红外避障传感器</li>
+                        <li>运动：直流减速电机+编码器</li>
+                        <li>通信：Wi-Fi和蓝牙</li>
+                        <li>电源：7.4V锂电池</li>
+                        <li>开发语言：Rust</li>
+                    </ul>
+                    
+                    <h3>功能特点</h3>
+                    <ul>
+                        <li>自主避障和路径规划</li>
+                        <li>手机APP远程控制与监控</li>
+                        <li>OTA固件升级</li>
+                        <li>基于Rust的内存安全设计</li>
+                        <li>低功耗模式延长续航</li>
+                    </ul>
+                    
+                    <div class="project-links">
+                        <a href="#" class="btn repo-btn"><i class="fab fa-github"></i> 查看代码</a>
+                        <a href="#" class="btn demo-btn"><i class="fas fa-play-circle"></i> 演示视频</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>linkyourbin</h3>
+                <p>嵌入式系统开发者 | 专注于微控制器应用</p>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">首页</a>
+                <a href="about.html">关于</a>
+                <a href="chips.html">芯片</a>
+                <a href="projects.html">项目</a>
+                <a href="contact.html">联系</a>
+            </div>
+            <div class="footer-contact">
+                <p><i class="fas fa-envelope"></i> lampmud@163.com</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 linkyourbin. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="/assets/js/scripts.js"></script>
+    <script src="../assets/js/scripts.js"></script>
 </body>
 </html>
