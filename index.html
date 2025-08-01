@@ -56,7 +56,7 @@
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
-  <!-- 主导航栏：网站主导航区域 -->
+  <!-- 主导航栏：网站站主导主导航区域 -->
   <header class="sticky top-0 z-50 bg-white shadow-md transition-custom">
     <div class="container mx-auto px-4 py-3 flex justify-between justify-between items-center">
       <a href="/" class="flex items-center space-x-2" aria-label="返回首页">
@@ -325,71 +325,102 @@
   </footer>
   <!-- 交互脚本：处理导航菜单和页面交互效果 -->
   <script>
-    // 移动端菜单切换
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuButton.addEventListener('click', () => {
-      const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-      mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-      mobileMenu.classList.toggle('hidden');
-      mobileMenu.setAttribute('aria-hidden', isExpanded);
-      // 切换图标
-      const icon = mobileMenuButton.querySelector('i');
-      if (isExpanded) {
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
-      } else {
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-times');
-      }
-    });
-    // 移动端二级导航菜单切换
-    const submenuButton = document.getElementById('submenu-button');
-    const submenu = document.getElementById('submenu');
-    if (submenuButton && submenu) {
-      submenuButton.addEventListener('click', () => {
-        submenu.classList.toggle('hidden');
-        const icon = submenuButton.querySelector('i');
-        icon.classList.toggle('fa-chevron-up');
-        icon.classList.toggle('fa-chevron-down');
-      });
-    }
-    // 导航栏滚动效果
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('header');
-      if (window.scrollY > 50) {
-        header.classList.add('py-2', 'shadow-lg');
-        header.classList.remove('py-3', 'shadow-md');
-      } else {
-        header.classList.add('py-3', 'shadow-md');
-        header.classList.remove('py-2', 'shadow-lg');
-      }
-    });
-
-    // 移动端二级导航菜单项点击后自动关闭菜单
-    const submenuItems = document.querySelectorAll('.submenu-item');
-    submenuItems.forEach(item => {
-      item.addEventListener('click', () => {
-        submenu.classList.add('hidden');
-        const icon = submenuButton.querySelector('i');
-        icon.classList.remove('fa-chevron-up');
-        icon.classList.add('fa-chevron-down');
-      });
-    });
-
-    // 确保页面加载完成后，移动端二级菜单是隐藏的
+    // 等待DOM完全加载后执行
     document.addEventListener('DOMContentLoaded', function() {
+      // 移动端菜单切换
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      if (mobileMenuButton && mobileMenu) {
+        mobileMenuButton.addEventListener('click', () => {
+          const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+          mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+          mobileMenu.classList.toggle('hidden');
+          mobileMenu.setAttribute('aria-hidden', isExpanded);
+          
+          // 切换图标
+          const icon = mobileMenuButton.querySelector('i');
+          if (isExpanded) {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          } else {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+          }
+        });
+      }
+      
+      // 移动端二级导航菜单切换
+      const submenuButton = document.getElementById('submenu-button');
       const submenu = document.getElementById('submenu');
+      
+      if (submenuButton && submenu) {
+        submenuButton.addEventListener('click', () => {
+          submenu.classList.toggle('hidden');
+          const icon = submenuButton.querySelector('i');
+          icon.classList.toggle('fa-chevron-up');
+          icon.classList.toggle('fa-chevron-down');
+        });
+        
+        // 为所有二级菜单项添加点击事件，包括嵌入式教程
+        const submenuItems = document.querySelectorAll('.submenu-item');
+        submenuItems.forEach(item => {
+          item.addEventListener('click', (e) => {
+            // 关闭子菜单
+            submenu.classList.add('hidden');
+            // 重置图标
+            const icon = submenuButton.querySelector('i');
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+            
+            // 对于当前页面的链接，阻止默认行为并高亮
+            const currentPath = window.location.pathname;
+            if (item.getAttribute('href') === currentPath) {
+              e.preventDefault();
+              // 可以在这里添加当前页导航项的高亮逻辑
+            }
+          });
+        });
+      }
+      
+      // 导航栏滚动效果
+      window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (header) {
+          if (window.scrollY > 50) {
+            header.classList.add('py-2', 'shadow-lg');
+            header.classList.remove('py-3', 'shadow-md');
+          } else {
+            header.classList.add('py-3', 'shadow-md');
+            header.classList.remove('py-2', 'shadow-lg');
+          }
+        }
+      });
+      
+      // 确保移动端二级菜单默认是隐藏的
       if (submenu && !submenu.classList.contains('hidden')) {
-        // 如果菜单存在且没有 hidden 类，则添加它
         submenu.classList.add('hidden');
-        // 确保按钮图标是向下的
-        const icon = document.querySelector('#submenu-button i.fa-chevron-down, #submenu-button i.fa-chevron-up');
+        const icon = document.querySelector('#submenu-button i');
         if (icon) {
           icon.classList.remove('fa-chevron-up');
           icon.classList.add('fa-chevron-down');
         }
       }
+      
+      // 桌面端导航项交互 - 统一处理所有导航项的激活状态
+      const currentPath = window.location.pathname;
+      
+      // 处理二级导航
+      const secondaryNavLinks = document.querySelectorAll('[aria-label="二级导航"] a');
+      secondaryNavLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+          link.classList.add('text-accent');
+          link.classList.remove('text-gray-600', 'hover:text-primary');
+        } else {
+          link.classList.remove('text-accent');
+          link.classList.add('text-gray-600', 'hover:text-primary');
+        }
+      });
     });
   </script>
 </body>
