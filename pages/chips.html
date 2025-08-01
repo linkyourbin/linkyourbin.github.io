@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="深入介绍STM32、ESP32、RP2040和RP235x等主流微控制器的特点与应用，助力嵌入式开发学习与项目实践。">
     <title>微控制器 | EmbeddedLab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -24,7 +25,6 @@
         }
     </script>
     <style type="text/tailwindcss">
-        /* 移除@apply，直接使用工具类或常规CSS */
         .text-shadow {
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -38,44 +38,53 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
+        .back-to-top {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
     <!-- 导航栏 -->
-    <header class="sticky top-0 z-50 bg-white shadow-md">
+    <header class="sticky top-0 z-50 bg-white shadow-md" role="banner">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="/" class="flex items-center space-x-2">
+            <a href="/" class="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-md p-1">
                 <span class="text-2xl font-bold text-primary">EmbeddedLab</span>
             </a>
             
             <!-- 桌面导航 -->
-            <nav class="hidden md:flex space-x-8">
-                <a href="/" class="font-medium text-gray-600 hover:text-primary transition-custom">首页</a>
-                <a href="/pages/projects.html" class="font-medium text-gray-600 hover:text-primary transition-custom">项目</a>
-                <a href="/pages/chips.html" class="font-medium text-primary hover:text-accent transition-custom">芯片</a>
-                <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-custom">关于</a>
-                <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-custom">联系</a>
+            <nav class="hidden md:flex space-x-8" role="navigation" aria-label="主导航">
+                <a href="/" class="font-medium text-gray-600 hover:text-primary transition-custom px-2 py-1" aria-current="false">首页</a>
+                <a href="/pages/projects.html" class="font-medium text-gray-600 hover:text-primary transition-custom px-2 py-1" aria-current="false">项目</a>
+                <a href="/pages/chips.html" class="font-medium text-primary hover:text-accent transition-custom px-2 py-1" aria-current="page">芯片</a>
+                <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-custom px-2 py-1" aria-current="false">关于</a>
+                <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-custom px-2 py-1" aria-current="false">联系</a>
             </nav>
             
             <!-- 移动端菜单按钮 -->
-            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary/50 p-1 rounded" aria-label="打开菜单" aria-expanded="false">
                 <i class="fa fa-bars text-2xl"></i>
             </button>
         </div>
         
         <!-- 移动端导航 -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full" role="navigation" aria-label="移动导航">
             <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
-                <a href="/" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">首页</a>
-                <a href="/pages/projects.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">项目</a>
-                <a href="/pages/chips.html" class="font-medium text-primary py-2 hover:text-accent transition-custom">芯片</a>
-                <a href="/pages/about.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">关于</a>
-                <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">联系</a>
+                <a href="/" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom" aria-current="false">首页</a>
+                <a href="/pages/projects.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom" aria-current="false">项目</a>
+                <a href="/pages/chips.html" class="font-medium text-primary py-2 hover:text-accent transition-custom" aria-current="page">芯片</a>
+                <a href="/pages/about.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom" aria-current="false">关于</a>
+                <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom" aria-current="false">联系</a>
             </div>
         </div>
     </header>
 
-    <main>
+    <main role="main">
         <!-- 页面标题 -->
         <section class="bg-gradient-to-r from-primary/90 to-accent/90 text-white py-12 md:py-16">
             <div class="container mx-auto px-4">
@@ -95,7 +104,7 @@
                         <div class="md:flex">
                             <div class="md:w-1/3 bg-primary/20 flex items-center justify-center p-6">
                                 <div class="w-full h-48 bg-white rounded-lg flex items-center justify-center">
-                                    <span class="text-primary font-bold text-2xl">STM32</span>
+                                    <img src="https://picsum.photos/id/180/300/200" alt="STM32微控制器实物图" class="w-full h-full object-contain p-4" loading="lazy">
                                 </div>
                             </div>
                             <div class="md:w-2/3 p-6 md:p-8">
@@ -128,7 +137,7 @@
                         <div class="md:flex">
                             <div class="md:w-1/3 bg-secondary/20 flex items-center justify-center p-6">
                                 <div class="w-full h-48 bg-white rounded-lg flex items-center justify-center">
-                                    <span class="text-primary font-bold text-2xl">ESP32</span>
+                                    <img src="https://picsum.photos/id/160/300/200" alt="ESP32无线微控制器" class="w-full h-full object-contain p-4" loading="lazy">
                                 </div>
                             </div>
                             <div class="md:w-2/3 p-6 md:p-8">
@@ -161,7 +170,7 @@
                         <div class="md:flex">
                             <div class="md:w-1/3 bg-accent/20 flex items-center justify-center p-6">
                                 <div class="w-full h-48 bg-white rounded-lg flex items-center justify-center">
-                                    <span class="text-primary font-bold text-2xl">RP2040</span>
+                                    <img src="https://picsum.photos/id/119/300/200" alt="RP2040微控制器" class="w-full h-full object-contain p-4" loading="lazy">
                                 </div>
                             </div>
                             <div class="md:w-2/3 p-6 md:p-8">
@@ -194,7 +203,7 @@
                         <div class="md:flex">
                             <div class="md:w-1/3 bg-primary/20 flex items-center justify-center p-6">
                                 <div class="w-full h-48 bg-white rounded-lg flex items-center justify-center">
-                                    <span class="text-primary font-bold text-2xl">RP235x</span>
+                                    <img src="https://picsum.photos/id/96/300/200" alt="RP235x系列微控制器" class="w-full h-full object-contain p-4" loading="lazy">
                                 </div>
                             </div>
                             <div class="md:w-2/3 p-6 md:p-8">
@@ -226,8 +235,13 @@
         </section>
     </main>
 
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="back-to-top fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/50" aria-label="返回顶部">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
     <!-- 页脚 -->
-    <footer class="bg-gray-800 text-white py-10">
+    <footer class="bg-gray-800 text-white py-10" role="contentinfo">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
@@ -249,18 +263,62 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4">联系我</h3>
                     <ul class="space-y-2 text-gray-400">
-                        <li class="flex items-center"><i class="fa fa-envelope-o mr-2 text-primary"></i> contact@embeddedlab.com</li>
-                        <li class="flex items-center"><i class="fa fa-github mr-2 text-primary"></i> github.com/linkyourbin</li>
+                        <li class="flex items-center"><i class="fa fa-envelope-o mr-2 text-primary"></i> <a href="mailto:contact@embeddedlab.com" class="hover:text-primary transition-custom">contact@embeddedlab.com</a></li>
+                        <li class="flex items-center"><i class="fa fa-github mr-2 text-primary"></i> <a href="https://github.com/linkyourbin" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-custom">github.com/linkyourbin</a></li>
+                        <li class="flex items-center"><i class="fa fa-twitter mr-2 text-primary"></i> <a href="https://twitter.com/embeddedlab" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-custom">@embeddedlab</a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
-                <p>&copy; 2025 EmbeddedLab. 保留所有权利。</p>
+                <p>&copy; <span id="current-year"></span> EmbeddedLab. 保留所有权利。</p>
             </div>
         </div>
     </footer>
 
-    <script src="/assets/js/scripts.js"></script>
+    <script>
+        // 移动端菜单控制
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+            // 切换图标
+            const icon = mobileMenuButton.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 动态更新版权年份
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // 图片加载错误处理（显示默认图标）
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', () => {
+                img.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2365B7C9'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z'/%3E%3C/svg%3E`;
+                img.alt = '微控制器示意图';
+            });
+        });
+    </script>
 </body>
 </html>
