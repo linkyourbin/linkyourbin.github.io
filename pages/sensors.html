@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>传感器应用 - linkyourbin嵌入式开发实验室</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#65B7C9',
+            secondary: '#F8C8DC',
+            accent: '#9D65C9',
+          },
+          fontFamily: {
+            sans: ['Inter', 'PingFang SC', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .transition-custom {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .sensor-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .sensor-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+      .interface-badge {
+        @apply inline-block px-3 py-1 rounded-full text-xs font-medium;
+      }
+    }
+    /* 隐藏滚动条样式 (针对非标准浏览器) */
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <!-- 主导航栏 -->
+  <header class="sticky top-0 z-50 bg-white shadow-md transition-custom">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="/" class="flex items-center space-x-2" aria-label="返回首页">
+        <span class="text-2xl font-bold text-primary">linkyourbin</span>
+      </a>
+      <!-- 桌面主导航 -->
+      <nav class="hidden md:flex space-x-8" aria-label="主导航">
+        <a href="/" class="font-medium text-gray-600 hover:text-primary transition-custom">首页</a>
+        <a href="/pages/projects.html" class="font-medium text-gray-600 hover:text-primary transition-custom">项目</a>
+        <a href="/pages/chips.html" class="font-medium text-gray-600 hover:text-primary transition-custom">芯片</a>
+        <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-custom">关于</a>
+        <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-custom">联系</a>
+      </nav>
+      <!-- 移动端菜单按钮 -->
+      <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none"
+              aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">
+        <i class="fa fa-bars text-2xl"></i>
+      </button>
+    </div>
+    <!-- 移动端主导航 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full transition-custom" aria-hidden="true">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="/" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">首页</a>
+        <a href="/pages/projects.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">项目</a>
+        <a href="/pages/chips.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">芯片</a>
+        <a href="/pages/about.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">关于</a>
+        <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">联系</a>
+      </div>
+    </div>
+  </header>
+  <!-- 二级导航栏 -->
+  <div class="bg-primary/20 border-b-2 border-primary py-3 shadow-md">
+    <div class="container mx-auto px-4">
+      <nav class="hidden md:flex space-x-8" aria-label="二级导航">
+        <a href="/pages/tut.html" class="text-base font-medium text-gray-600 hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-graduation-cap mr-2"></i>嵌入式教程
+        </a>
+        <a href="/pages/tools.html" class="text-base font-medium text-gray-600 hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-wrench mr-2"></i>开发工具
+        </a>
+        <a href="/pages/sensors.html" class="text-base font-medium text-accent hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-microchip mr-2"></i>传感器应用
+        </a>
+        <a href="/pages/iot.html" class="text-base font-medium text-gray-600 hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-wifi mr-2"></i>物联网方案
+        </a>
+        <a href="/pages/open_source_projects.html" class="text-base font-medium text-gray-600 hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-code-fork mr-2"></i>开源项目
+        </a>
+      </nav>
+      <!-- 移动端二级导航下拉菜单 -->
+      <div class="md:hidden">
+        <button id="submenu-button" class="w-full text-left flex justify-between items-center text-base font-medium text-primary py-2">
+          <span><i class="fa fa-th-list mr-2"></i>导航菜单</span>
+          <i class="fa fa-chevron-down transition-transform duration-300"></i>
+        </button>
+        <div id="submenu" class="hidden mt-2 bg-white rounded-lg shadow-md p-2 absolute left-0 right-0 mx-4 z-50">
+          <a href="/pages/tut.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+            <i class="fa fa-graduation-cap mr-2"></i>嵌入式教程
+          </a>
+          <a href="/pages/tools.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+            <i class="fa fa-wrench mr-2"></i>开发工具
+          </a>
+          <a href="/pages/sensors.html" class="block px-4 py-2 text-accent hover:bg-primary/10 rounded">
+            <i class="fa fa-microchip mr-2"></i>传感器应用
+          </a>
+          <a href="/pages/iot.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+            <i class="fa fa-wifi mr-2"></i>物联网方案
+          </a>
+          <a href="/pages/open_source_projects.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+            <i class="fa fa-code-fork mr-2"></i>开源项目
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <main class="py-12">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800">传感器应用指南</h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">介绍常用传感器的特性、接口和嵌入式应用方法，提供实用的驱动代码和示例</p>
+      </div>
+      <!-- 传感器分类 -->
+      <div class="flex overflow-x-auto pb-2 mb-8 scrollbar-hide space-x-4">
+        <button class="whitespace-nowrap bg-primary text-white px-5 py-2 rounded-full shadow-md">
+          全部传感器
+        </button>
+        <button class="whitespace-nowrap bg-white text-gray-700 px-5 py-2 rounded-full shadow-md hover:bg-gray-100 transition-custom">
+          环境传感器
+        </button>
+        <button class="whitespace-nowrap bg-white text-gray-700 px-5 py-2 rounded-full shadow-md hover:bg-gray-100 transition-custom">
+          运动传感器
+        </button>
+        <button class="whitespace-nowrap bg-white text-gray-700 px-5 py-2 rounded-full shadow-md hover:bg-gray-100 transition-custom">
+          光学传感器
+        </button>
+        <button class="whitespace-nowrap bg-white text-gray-700 px-5 py-2 rounded-full shadow-md hover:bg-gray-100 transition-custom">
+          距离传感器
+        </button>
+        <button class="whitespace-nowrap bg-white text-gray-700 px-5 py-2 rounded-full shadow-md hover:bg-gray-100 transition-custom">
+          气体传感器
+        </button>
+      </div>
+      <!-- 传感器列表 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 传感器1 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md sensor-card">
+          <div class="h-48 bg-primary/10 flex items-center justify-center p-6">
+            <i class="fa fa-thermometer-half text-6xl text-primary"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">温湿度传感器</h3>
+            <p class="text-gray-600 mb-3">如SHT30、DHT11、AHT20等，用于测量环境温度和相对湿度，广泛应用于智能家居、气象监测</p>
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">常用接口</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="interface-badge bg-primary/20 text-primary">I2C</span>
+                <span class="interface-badge bg-secondary/20 text-gray-700">单总线</span>
+              </div>
+            </div>
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">典型参数</h4>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>温度范围: -40°C ~ 85°C</li>
+                <li>湿度范围: 0% ~ 100% RH</li>
+                <li>精度: ±0.3°C, ±2% RH</li>
+              </ul>
+            </div>
+            <a href="/pages/tut.html#temperature-sensor" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom">
+              查看教程 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        <!-- 传感器2 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md sensor-card">
+          <div class="h-48 bg-secondary/10 flex items-center justify-center p-6">
+            <i class="fa fa-compass text-6xl text-secondary"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">加速度传感器</h3>
+            <p class="text-gray-600 mb-3">如MPU6050、LIS3DH等，测量线性加速度和角速度，用于运动检测、姿态识别、振动监测</p>
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">常用接口</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="interface-badge bg-primary/20 text-primary">I2C</span>
+                <span class="interface-badge bg-secondary/20 text-gray-700">SPI</span>
+              </div>
+            </div>
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">典型参数</h4>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>加速度范围: ±2g ~ ±16g</li>
+                <li>角速度范围: ±250°/s ~ ±2000°/s</li>
+                <li>分辨率: 16位</li>
+              </ul>
+            </div>
+            <a href="/pages/tut.html#accelerometer" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom">
+              查看教程 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        <!-- 传感器3 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md sensor-card">
+          <div class="h-48 bg-accent/10 flex items-center justify-center p-6">
+            <i class="fa fa-lightbulb-o text-6xl text-accent"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">光照传感器</h3>
+            <p class="text-gray-600 mb-3">如BH1750、TSL2561等，测量环境光强度，用于自动背光调节、节能控制、农业光照监测</p>
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">常用接口</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="interface-badge bg-primary/20 text-primary">I2C</span>
+              </div>
+            </div>
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">典型参数</h4>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>测量范围: 0 ~ 65535 lx</li>
+                <li>精度: ±20%</li>
+                <li>响应时间: 120ms</li>
+              </ul>
+            </div>
+            <a href="/pages/tut.html#light-sensor" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom">
+              查看教程 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        <!-- 传感器4 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md sensor-card">
+          <div class="h-48 bg-primary/10 flex items-center justify-center p-6">
+            <i class="fa fa-tint text-6xl text-primary"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">土壤湿度传感器</h3>
+            <p class="text-gray-600 mb-3">如FC-28、SEN0193等，测量土壤含水量，用于智能灌溉、农业自动化、植物生长监测</p>
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">常用接口</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="interface-badge bg-primary/20 text-primary">ADC</span>
+                <span class="interface-badge bg-secondary/20 text-gray-700">数字输出</span>
+              </div>
+            </div>
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">典型参数</h4>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>测量范围: 0 ~ 100%</li>
+                <li>工作电压: 3.3V ~ 5V</li>
+                <li>响应时间: <1秒</li>
+              </ul>
+            </div>
+            <a href="/pages/tut.html#soil-moisture" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom">
+              查看教程 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        <!-- 传感器5 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md sensor-card">
+          <div class="h-48 bg-secondary/10 flex items-center justify-center p-6">
+            <i class="fa fa-arrows-h text-6xl text-secondary"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">距离传感器</h3>
+            <p class="text-gray-600 mb-3">如HC-SR04(超声波)、VL53L0X(激光)，测量物体距离，用于避障、液位检测、自动门控制</p>
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">常用接口</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="interface-badge bg-primary/20 text-primary">GPIO</span>
+                <span class="interface-badge bg-secondary/20 text-gray-700">I2C</span>
+              </div>
+            </div>
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">典型参数</h4>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>测量范围: 2cm ~ 4m</li>
+                <li>精度: ±3% ~ ±5%</li>
+                <li>测量频率: 10Hz ~ 50Hz</li>
+              </ul>
+            </div>
+            <a href="/pages/tut.html#distance-sensor" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom">
+              查看教程 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        <!-- 传感器6 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md sensor-card">
+          <div class="h-48 bg-accent/10 flex items-center justify-center p-6">
+            <i class="fa fa-cloud text-6xl text-accent"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">气体传感器</h3>
+            <p class="text-gray-600 mb-3">如MQ-2(烟雾)、MQ-135(空气质量)，检测特定气体浓度，用于安防、环境监测、健康防护</p>
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">常用接口</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="interface-badge bg-primary/20 text-primary">ADC</span>
+                <span class="interface-badge bg-secondary/20 text-gray-700">UART</span>
+              </div>
+            </div>
+            <div class="mb-4">
+              <h4 class="text-sm font-medium text-gray-500 mb-2">典型参数</h4>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>检测范围: 100ppm ~ 10000ppm</li>
+                <li>工作温度: -10°C ~ 50°C</li>
+                <li>预热时间: 2 ~ 5分钟</li>
+              </ul>
+            </div>
+            <a href="/pages/tut.html#gas-sensor" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom">
+              查看教程 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- 传感器接口指南 -->
+      <div class="bg-white rounded-xl shadow-md p-6 md:p-8 mt-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">传感器接口详解</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+              <span class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fa fa-exchange text-primary"></i>
+              </span>
+              I2C接口
+            </h3>
+            <p class="text-gray-600 mb-3">I2C（Inter-Integrated Circuit）是一种两线制串行总线，由飞利浦公司开发。它只需要两根信号线（SDA - 数据线，SCL - 时钟线）即可实现多主机、多从机的通信。</p>
+            <ul class="list-disc pl-5 text-gray-600 space-y-2">
+              <li><strong>优点：</strong> 接线简单，支持多设备挂载，有设备地址寻址机制。</li>
+              <li><strong>缺点：</strong> 速度相对较慢（标准模式100 kbit/s，快速模式400 kbit/s，高速模式3.4 Mbit/s），需要上拉电阻。</li>
+              <li><strong>应用场景：</strong> 温湿度传感器、加速度计、陀螺仪、EEPROM、实时时钟(RTC)等。</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+              <span class="w-8 h-8 bg-secondary/20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fa fa-exchange text-secondary"></i>
+              </span>
+              SPI接口
+            </h3>
+            <p class="text-gray-600 mb-3">SPI（Serial Peripheral Interface）是一种同步串行通信接口，由Motorola公司开发。它通常使用四根线（MOSI, MISO, SCK, CS）进行通信。</p>
+            <ul class="list-disc pl-5 text-gray-600 space-y-2">
+              <li><strong>优点：</strong> 通信速度快（可达几十MHz），全双工通信，无设备地址限制（通过CS片选）。</li>
+              <li><strong>缺点：</strong> 占用引脚较多，不支持多主机。</li>
+              <li><strong>应用场景：</strong> SD卡、Flash存储、显示屏、ADC/DAC转换器等。</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+              <span class="w-8 h-8 bg-accent/20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fa fa-exchange text-accent"></i>
+              </span>
+              UART接口
+            </h3>
+            <p class="text-gray-600 mb-3">UART（Universal Asynchronous Receiver/Transmitter）是一种异步串行通信接口。它通常使用两根数据线（TX - 发送，RX - 接收）进行通信，有时还包括地线(GND)。</p>
+            <ul class="list-disc pl-5 text-gray-600 space-y-2">
+              <li><strong>优点：</strong> 实现简单，硬件资源要求低，广泛用于调试和数据传输。</li>
+              <li><strong>缺点：</strong> 需要事先约定波特率，传输距离有限，点对点通信。</li>
+              <li><strong>应用场景：</strong> GPS模块、蓝牙模块、WiFi模块、传感器模块与MCU通信等。</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+              <span class="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                <i class="fa fa-exchange text-primary"></i>
+              </span>
+              ADC接口
+            </h3>
+            <p class="text-gray-600 mb-3">ADC（Analog-to-Digital Converter）接口用于将模拟信号（如电压）转换为数字信号，以便MCU处理。许多MCU内部集成了ADC模块。</p>
+            <ul class="list-disc pl-5 text-gray-600 space-y-2">
+              <li><strong>优点：</strong> 可以直接读取模拟传感器（如电位器、光敏电阻）的值。</li>
+              <li><strong>缺点：</strong> 需要MCU具备ADC功能，转换精度受ADC位数和参考电压影响。</li>
+              <li><strong>应用场景：</strong> 电位器、光敏电阻、土壤湿度传感器、声音传感器等。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- 页脚 -->
+  <footer class="bg-gray-800 text-white py-10 mt-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="md:col-span-2">
+          <h3 class="text-xl font-bold mb-4 text-primary">linkyourbin 嵌入式开发实验室</h3>
+          <p class="text-gray-400 mb-4">专注于嵌入式系统开发，分享基于STM32、ESP32、RP2040等微控制器的项目经验和技术教程。</p>
+          <div class="flex space-x-4">
+            <a href="https://github.com/linkyourbin" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-custom">
+              <i class="fa fa-github text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-custom">
+              <i class="fa fa-weibo text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-custom">
+              <i class="fa fa-twitter text-xl"></i>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">快速链接</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="/" class="hover:text-primary transition-custom">首页</a></li>
+            <li><a href="/pages/projects.html" class="hover:text-primary transition-custom">项目</a></li>
+            <li><a href="/pages/chips.html" class="hover:text-primary transition-custom">芯片</a></li>
+            <li><a href="/pages/about.html" class="hover:text-primary transition-custom">关于</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">技术专题</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="/pages/tut.html" class="hover:text-primary transition-custom">嵌入式教程</a></li>
+            <li><a href="/pages/tools.html" class="hover:text-primary transition-custom">开发工具</a></li>
+            <li><a href="/pages/sensors.html" class="hover:text-primary transition-custom">传感器应用</a></li>
+            <li><a href="/pages/iot.html" class="hover:text-primary transition-custom">物联网方案</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 linkyourbin. 保留所有权利。 | <a href="#" class="hover:text-gray-400 transition-custom">隐私政策</a> | <a href="#" class="hover:text-gray-400 transition-custom">使用条款</a></p>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // 移动端主导航菜单切换
+    document.getElementById('mobile-menu-button').addEventListener('click', function() {
+      const menu = document.getElementById('mobile-menu');
+      const icon = this.querySelector('i');
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+      menu.classList.toggle('hidden');
+      this.setAttribute('aria-expanded', !isExpanded);
+      menu.setAttribute('aria-hidden', isExpanded);
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+
+    // 移动端二级导航菜单切换
+    document.getElementById('submenu-button').addEventListener('click', function() {
+      const submenu = document.getElementById('submenu');
+      const icon = this.querySelector('i');
+
+      submenu.classList.toggle('hidden');
+      icon.classList.toggle('rotate-180');
+    });
+  </script>
+</body>
+</html>
