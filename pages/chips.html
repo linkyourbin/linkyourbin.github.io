@@ -1,9 +1,317 @@
-<main>
-  <h2>Supported Chips</h2>
-  <ul>
-    <li>STM32 (F103, F407, G4)</li>
-    <li>ESP32 (Wi-Fi/BLE async tasks)</li>
-    <li>RP2040 (PIO + Rust async)</li>
-    <li>RP235x (early async adoption)</li>
-  </ul>
-</main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Dev | Chips</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#60A5FA',
+                        secondary: '#F9A8D4',
+                        light: '#F8FAFC',
+                        dark: '#1E293B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .chip-card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .chip-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(96, 165, 250, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .feature-item {
+                @apply flex items-start mb-3;
+            }
+            .feature-item i {
+                @apply text-secondary mt-1 mr-3;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark font-sans">
+    <!-- Header with Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-2">
+                <img src="/assets/images/logo.png" alt="Embedded Developer Logo" class="h-10 w-auto">
+                <span class="text-xl font-bold text-primary">EmbeddedLab</span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="/" class="font-medium text-gray-600 hover:text-primary transition-colors">Home</a>
+                <a href="/pages/projects.html" class="font-medium text-gray-600 hover:text-primary transition-colors">Projects</a>
+                <a href="/pages/chips.html" class="font-medium text-primary border-b-2 border-primary pb-1">Chips</a>
+                <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-colors">About</a>
+                <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-colors">Contact</a>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
+                <i class="fa fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="/" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Home</a>
+                <a href="/pages/projects.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Projects</a>
+                <a href="/pages/chips.html" class="font-medium text-primary py-2">Chips</a>
+                <a href="/pages/about.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">About</a>
+                <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page Header -->
+        <section class="py-16 bg-gradient-to-br from-primary/10 to-secondary/10">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-3xl md:text-5xl font-bold mb-4">Microcontrollers</h1>
+                <p class="text-lg max-w-2xl mx-auto text-gray-600">Experience with STM32, ESP32, RP2040, RP235x and other embedded platforms.</p>
+            </div>
+        </section>
+
+        <!-- Chips Overview -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- STM32 Card -->
+                    <div class="bg-light rounded-xl p-6 shadow-md chip-card border-t-4 border-primary">
+                        <div class="text-center mb-4">
+                            <i class="fa fa-microchip text-4xl text-primary mb-3"></i>
+                            <h3 class="text-xl font-bold">STM32</h3>
+                        </div>
+                        <p class="text-gray-600 text-center mb-4">ARM Cortex-M based microcontrollers with extensive peripheral sets.</p>
+                        <div class="text-center">
+                            <span class="inline-block bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full">Expert</span>
+                        </div>
+                    </div>
+                    
+                    <!-- ESP32 Card -->
+                    <div class="bg-light rounded-xl p-6 shadow-md chip-card border-t-4 border-primary">
+                        <div class="text-center mb-4">
+                            <i class="fa fa-wifi text-4xl text-primary mb-3"></i>
+                            <h3 class="text-xl font-bold">ESP32</h3>
+                        </div>
+                        <p class="text-gray-600 text-center mb-4">WiFi and Bluetooth enabled microcontrollers with dual-core processors.</p>
+                        <div class="text-center">
+                            <span class="inline-block bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full">Expert</span>
+                        </div>
+                    </div>
+                    
+                    <!-- RP2040 Card -->
+                    <div class="bg-light rounded-xl p-6 shadow-md chip-card border-t-4 border-primary">
+                        <div class="text-center mb-4">
+                            <i class="fa fa-microchip text-4xl text-primary mb-3"></i>
+                            <h3 class="text-xl font-bold">RP2040</h3>
+                        </div>
+                        <p class="text-gray-600 text-center mb-4">Dual-core ARM Cortex-M0+ microcontroller with PIO state machines.</p>
+                        <div class="text-center">
+                            <span class="inline-block bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full">Advanced</span>
+                        </div>
+                    </div>
+                    
+                    <!-- RP235x Card -->
+                    <div class="bg-light rounded-xl p-6 shadow-md chip-card border-t-4 border-primary">
+                        <div class="text-center mb-4">
+                            <i class="fa fa-microchip text-4xl text-primary mb-3"></i>
+                            <h3 class="text-xl font-bold">RP235x</h3>
+                        </div>
+                        <p class="text-gray-600 text-center mb-4">Latest Raspberry Pi microcontroller with ARM Cortex-M33 cores.</p>
+                        <div class="text-center">
+                            <span class="inline-block bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full">Proficient</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Chip Information -->
+        <section class="py-16 bg-light">
+            <div class="container mx-auto px-4">
+                <!-- STM32 Details -->
+                <div class="mb-16 bg-white rounded-xl overflow-hidden shadow-md">
+                    <div class="md:flex">
+                        <div class="md:w-1/3 bg-primary/5 p-8 flex items-center justify-center">
+                            <img src="https://picsum.photos/id/1/400/400" alt="STM32 Microcontroller" class="max-h-64">
+                        </div>
+                        <div class="md:w-2/3 p-8">
+                            <h2 class="text-2xl font-bold mb-4 text-primary">STM32 Series</h2>
+                            <p class="text-gray-600 mb-6">STMicroelectronics' STM32 family is one of the most versatile microcontroller lines available, featuring ARM Cortex-M0, M0+, M3, M4, M7, and M33 cores. I've worked extensively with various STM32 models including the F1, F4, L0, and H7 series.</p>
+                            
+                            <h3 class="text-xl font-semibold mb-3">Key Features & Experience:</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>Advanced timer configurations for motor control</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>DMA for efficient peripheral data transfer</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>Low-power modes for battery-operated devices</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>CMSIS and HAL libraries proficiency</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>RTOS implementation (FreeRTOS, Zephyr)</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>USB device and host implementations</span>
+                                </div>
+                            </div>
+                            
+                            <a href="/pages/projects.html" class="inline-block text-primary font-medium hover:underline">View STM32 Projects <i class="fa fa-arrow-right ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ESP32 Details -->
+                <div class="mb-16 bg-white rounded-xl overflow-hidden shadow-md">
+                    <div class="md:flex">
+                        <div class="md:w-1/3 bg-primary/5 p-8 flex items-center justify-center">
+                            <img src="https://picsum.photos/id/2/400/400" alt="ESP32 Microcontroller" class="max-h-64">
+                        </div>
+                        <div class="md:w-2/3 p-8">
+                            <h2 class="text-2xl font-bold mb-4 text-primary">ESP32 Series</h2>
+                            <p class="text-gray-600 mb-6">Espressif's ESP32 microcontrollers have revolutionized IoT development with their built-in WiFi and Bluetooth capabilities. I've worked with various ESP32 variants including the ESP32-C3, ESP32-S3, and ESP32-C6.</p>
+                            
+                            <h3 class="text-xl font-semibold mb-3">Key Features & Experience:</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>WiFi (802.11 b/g/n) and Bluetooth Classic/BLE</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>IoT protocol implementation (MQTT, CoAP, HTTP)</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>OTA (Over-The-Air) firmware updates</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>MicroPython and Arduino framework experience</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>Secure communication with TLS/SSL</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>Power management for battery efficiency</span>
+                                </div>
+                            </div>
+                            
+                            <a href="/pages/projects.html" class="inline-block text-primary font-medium hover:underline">View ESP32 Projects <i class="fa fa-arrow-right ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- RP2040 & RP235x Details -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-md">
+                    <div class="md:flex">
+                        <div class="md:w-1/3 bg-primary/5 p-8 flex items-center justify-center">
+                            <img src="https://picsum.photos/id/3/400/400" alt="Raspberry Pi Microcontrollers" class="max-h-64">
+                        </div>
+                        <div class="md:w-2/3 p-8">
+                            <h2 class="text-2xl font-bold mb-4 text-primary">RP2040 & RP235x</h2>
+                            <p class="text-gray-600 mb-6">Raspberry Pi's entry into microcontrollers with the RP2040 and its successor RP235x offer unique capabilities with their PIO (Programmable I/O) state machines and powerful processing cores.</p>
+                            
+                            <h3 class="text-xl font-semibold mb-3">Key Features & Experience:</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>PIO programming for custom peripherals</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>Rust embedded development with embassy</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>RP235x's Cortex-M33 and DSP capabilities</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>UF2 bootloader and easy programming</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>W5500 Ethernet and connectivity expansions</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fa fa-check-circle"></i>
+                                    <span>Low-cost development with Raspberry Pi Pico</span>
+                                </div>
+                            </div>
+                            
+                            <a href="/pages/projects.html" class="inline-block text-primary font-medium hover:underline">View RP Projects <i class="fa fa-arrow-right ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <img src="/assets/images/logo.png" alt="Embedded Developer Logo" class="h-8 w-auto">
+                        <span class="text-xl font-bold">EmbeddedLab</span>
+                    </div>
+                    <p class="text-gray-400">Embedded systems developer portfolio</p>
+                </div>
+                
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="https://github.com/linkyourbin" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fa fa-github text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fa fa-linkedin text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fa fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fa fa-youtube-play text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 EmbeddedLab. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/scripts.js"></script>
+</body>
+</html>
+    

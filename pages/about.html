@@ -1,41 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>About - LinkYourBin</title>
-  <link rel="stylesheet" href="../assets/css/styls.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Dev | About</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#60A5FA',
+                        secondary: '#F9A8D4',
+                        light: '#F8FAFC',
+                        dark: '#1E293B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .skill-bar {
+                @apply h-2 bg-gray-200 rounded-full overflow-hidden;
+            }
+            .skill-progress {
+                @apply h-full rounded-full transition-all duration-1000;
+            }
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <div class="nav-container">
-      <h1 class="site-title">LinkYourBin</h1>
-      <nav>
-        <a href="../index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="chips.html">Chips</a>
-        <a href="projects.html">Projects</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </header>
+<body class="bg-light text-dark font-sans">
+    <!-- Header with Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-2">
+                <img src="/assets/images/logo.png" alt="Embedded Developer Logo" class="h-10 w-auto">
+                <span class="text-xl font-bold text-primary">EmbeddedLab</span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="/" class="font-medium text-gray-600 hover:text-primary transition-colors">Home</a>
+                <a href="/pages/projects.html" class="font-medium text-gray-600 hover:text-primary transition-colors">Projects</a>
+                <a href="/pages/chips.html" class="font-medium text-gray-600 hover:text-primary transition-colors">Chips</a>
+                <a href="/pages/about.html" class="font-medium text-primary border-b-2 border-primary pb-1">About</a>
+                <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-colors">Contact</a>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
+                <i class="fa fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="/" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Home</a>
+                <a href="/pages/projects.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Projects</a>
+                <a href="/pages/chips.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Chips</a>
+                <a href="/pages/about.html" class="font-medium text-primary py-2">About</a>
+                <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Contact</a>
+            </div>
+        </div>
+    </header>
 
-  <main>
-    <h2>About Me</h2>
-    <p>I’m passionate about embedded systems programming and firmware architecture.</p>
-    <p>My work involves:</p>
-    <ul>
-      <li>Firmware for STM32, ESP32, RP2040, RP235x</li>
-      <li>Languages: Rust, C, Python</li>
-    </ul>
-    <div>
-      <img class="language-logo" src="../assets/images/logo_rust.png" alt="Rust" />
-      <img class="language-logo" src="../assets/images/logo_c.png" alt="C" />
-      <img class="language-logo" src="../assets/images/logo_python.png" alt="Python" />
-    </div>
-  </main>
+    <main>
+        <!-- Page Header -->
+        <section class="py-16 bg-gradient-to-br from-primary/10 to-secondary/10">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-3xl md:text-5xl font-bold mb-4">About Me</h1>
+                <p class="text-lg max-w-2xl mx-auto text-gray-600">Embedded systems developer with a passion for microcontrollers and programming.</p>
+            </div>
+        </section>
 
-  <footer>
-    <p>&copy; 2025 LinkYourBin</p>
-  </footer>
+        <!-- About Content -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="md:flex gap-10">
+                    <div class="md:w-1/3">
+                        <div class="rounded-xl overflow-hidden shadow-lg mb-6">
+                            <img src="https://picsum.photos/id/177/600/800" alt="Embedded Developer Portrait" class="w-full h-auto">
+                        </div>
+                        
+                        <div class="bg-light p-6 rounded-xl shadow-sm">
+                            <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fa fa-envelope-o mt-1 mr-3 text-primary"></i>
+                                    <span>contact@embeddedlab.dev</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-github mt-1 mr-3 text-primary"></i>
+                                    <a href="https://github.com/linkyourbin" target="_blank" class="text-primary hover:underline">github.com/linkyourbin</a>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-linkedin mt-1 mr-3 text-primary"></i>
+                                    <a href="#" class="text-primary hover:underline">linkedin.com/in/embeddeddev</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-2/3">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-6">Hello, I'm an Embedded Systems Developer</h2>
+                        
+                        <p class="text-gray-600 mb-6">With several years of experience in embedded systems development, I specialize in working with microcontrollers like STM32, ESP32, RP2040, and the new RP235x. My background includes both hardware and software development for embedded systems.</p>
+                        
+                        <p class="text-gray-600 mb-6">I'm passionate about creating efficient, low-power embedded solutions that solve real-world problems. My programming experience spans C, Rust, and Python, allowing me to choose the right tool for each project's requirements.</p>
+                        
+                        <div class="mb-10">
+                            <h3 class="text-xl font-semibold mb-4">Skills</h3>
+                            
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="font-medium">C/C++ for Embedded</span>
+                                        <span>90%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress bg-primary" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="font-medium">Rust Embedded</span>
+                                        <span>75%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress bg-primary" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="font-medium">Python/MicroPython</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress bg-primary" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="font-medium">STM32 & ESP32 Development</span>
+                                        <span>90%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress bg-primary" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="font-medium">RP2040 & RP235x</span>
+                                        <span>80%</span>
+                                    </div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress bg-primary" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4">Experience</h3>
+                            <div class="border-l-4 border-primary pl-4 py-2 mb-6">
+                                <h4 class="font-semibold">Senior Embedded Engineer</h4>
+                                <p class="text-gray-600">Tech Solutions Inc., 2020 - Present</p>
+                                <p class="text-gray-600 text-sm mt-1">Led development of IoT sensor nodes using ESP32 and STM32 microcontrollers, implemented low-power optimizations, and designed communication protocols.</p>
+                            </div>
+                            <div class="border-l-4 border-primary pl-4 py-2">
+                                <h4 class="font-semibold">Embedded Software Developer</h4>
+                                <p class="text-gray-600">Electronics Design Lab, 2018 - 2020</p>
+                                <p class="text-gray-600 text-sm mt-1">Developed firmware for industrial control systems using C and C++, worked with various microcontrollers and communication interfaces.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <img src="/assets/images/logo.png" alt="Embedded Developer Logo" class="h-8 w-auto">
+                        <span class="text-xl font-bold">EmbeddedLab</span>
+                    </div>
+                    <p class="text-gray-400">Embedded systems developer portfolio</p>
+                </div>
+                
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="https://github.com/linkyourbin" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fa fa-github text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fa fa-linkedin text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fa fa-twitter text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fa fa-youtube-play text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 EmbeddedLab. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/scripts.js"></script>
 </body>
 </html>
+    

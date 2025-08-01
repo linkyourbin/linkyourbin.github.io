@@ -1,66 +1,108 @@
-* {
-  box-sizing: border-box;
-}
-
+/* 全局样式补充 */
 body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #fdfdfe;
-  color: #222;
-  line-height: 1.6;
+    scroll-behavior: smooth;
 }
 
-header {
-  background: linear-gradient(to right, #fbc2eb, #a6c1ee);
-  color: #fff;
-  padding: 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+    width: 8px;
 }
 
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
 }
 
-nav a {
-  color: #fff;
-  margin-left: 1rem;
-  text-decoration: none;
-  font-weight: bold;
+::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 4px;
 }
 
-nav a:hover {
-  text-decoration: underline;
+::-webkit-scrollbar-thumb:hover {
+    background: #60A5FA;
 }
 
-main {
-  padding: 2rem;
-  max-width: 1000px;
-  margin: auto;
+/* 加载动画 */
+.loader {
+    border-top-color: #60A5FA;
+    animation: spinner 0.6s linear infinite;
 }
 
-.hero {
-  text-align: center;
-  margin-top: 2rem;
+@keyframes spinner {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
-.banner {
-  max-width: 100%;
-  border-radius: 16px;
+/* 代码块样式 */
+code {
+    font-family: 'Fira Code', monospace;
+    background-color: #f1f5f9;
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+    font-size: 0.95em;
 }
 
-footer {
-  background-color: #a6c1ee;
-  color: #fff;
-  text-align: center;
-  padding: 1rem;
-  margin-top: 4rem;
+pre {
+    background-color: #f1f5f9;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1rem 0;
 }
 
-img.language-logo {
-  width: 60px;
-  margin: 1rem;
+pre code {
+    padding: 0;
+    background-color: transparent;
 }
+
+/* 图片悬停效果 */
+.img-hover-zoom {
+    overflow: hidden;
+}
+
+.img-hover-zoom img {
+    transition: transform 0.5s ease;
+}
+
+.img-hover-zoom:hover img {
+    transform: scale(1.05);
+}
+
+/* 表单提交按钮动画 */
+.btn-submit {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-submit:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+}
+
+.btn-submit:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+    
