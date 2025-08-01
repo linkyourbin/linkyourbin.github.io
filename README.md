@@ -34,3 +34,4 @@ This website is designed for deployment on GitHub Pages. To deploy:
 3. Replace placeholder images with your own project photos
 4. Modify the color scheme in the Tailwind configuration if needed
     
+
