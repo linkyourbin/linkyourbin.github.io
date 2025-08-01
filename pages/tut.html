@@ -27,36 +27,46 @@
     }
   </script>
 
-  <!-- 自定义样式 -->
+  <!-- 自定义样式 - 采用@layer utilities格式 -->
   <style type="text/tailwindcss">
-    .text-shadow {
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .transition-custom {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .skill-icon {
-      transition: transform 0.3s ease;
-    }
-    .skill-icon:hover {
-      transform: scale(1.1);
-    }
-    /* 平滑滚动 */
-    html {
-      scroll-behavior: smooth;
-    }
-    /* 教程步骤样式 */
-    .tutorial-step {
-      scroll-margin-top: 120px; /* 考虑两个导航栏的高度 */
-    }
-    .step-number {
-      flex-shrink: 0;
+    @layer utilities {
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .transition-custom {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .skill-icon {
+        transition: transform 0.3s ease;
+      }
+      .skill-icon:hover {
+        transform: scale(1.1);
+      }
+      /* 平滑滚动 */
+      html {
+        scroll-behavior: smooth;
+      }
+      /* 教程步骤样式 */
+      .tutorial-step {
+        scroll-margin-top: 120px; /* 考虑两个导航栏的高度 */
+      }
+      .step-number {
+        flex-shrink: 0;
+      }
+      /* 卡片悬停效果 - 与文件2统一 */
+      .solution-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .solution-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
     }
   </style>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-sans">
-  <!-- 主导航栏 -->
+  <!-- 主导航栏 - 保持一致 -->
   <header class="sticky top-0 z-50 bg-white shadow-md transition-custom">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
       <a href="/" class="flex items-center space-x-2" aria-label="返回首页">
@@ -91,16 +101,51 @@
     </div>
   </header>
 
-  <!-- 二级导航栏 -->
-  <div class="bg-gray-100 border-b border-gray-200 py-2">
+  <!-- 二级导航栏 - 采用文件2的样式 -->
+  <div class="bg-primary/20 border-b-2 border-primary py-3 shadow-md">
     <div class="container mx-auto px-4">
-      <nav class="hidden md:flex space-x-6" aria-label="二级导航">
-        <a href="/pages/tut.html" class="text-sm font-medium text-accent hover:text-primary transition-custom">嵌入式教程</a>
-        <a href="#" class="text-sm font-medium text-gray-600 hover:text-primary transition-custom">开发工具</a>
-        <a href="#" class="text-sm font-medium text-gray-600 hover:text-primary transition-custom">传感器应用</a>
-        <a href="#" class="text-sm font-medium text-gray-600 hover:text-primary transition-custom">物联网方案</a>
-        <a href="#" class="text-sm font-medium text-gray-600 hover:text-primary transition-custom">开源项目</a>
+      <nav class="hidden md:flex space-x-8" aria-label="二级导航">
+        <a href="/pages/tut.html" class="text-base font-medium text-accent hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-graduation-cap mr-2"></i>嵌入式教程
+        </a>
+        <a href="/pages/tools.html" class="text-base font-medium text-gray-600 hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-wrench mr-2"></i>开发工具
+        </a>
+        <a href="/pages/sensors.html" class="text-base font-medium text-gray-600 hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-microchip mr-2"></i>传感器应用
+        </a>
+        <a href="/pages/iot.html" class="text-base font-medium text-gray-600 hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-wifi mr-2"></i>物联网方案
+        </a>
+        <a href="/pages/open_source_projects.html" class="text-base font-medium text-gray-600 hover:text-primary transition-custom flex items-center">
+          <i class="fa fa-code-fork mr-2"></i>开源项目
+        </a>
       </nav>
+      
+      <!-- 移动端二级导航下拉菜单 - 与文件2保持一致 -->
+      <div class="md:hidden">
+        <button id="submenu-button" class="w-full text-left flex justify-between items-center text-base font-medium text-primary py-2">
+          <span><i class="fa fa-th-list mr-2"></i>导航菜单</span>
+          <i class="fa fa-chevron-down transition-transform duration-300"></i>
+        </button>
+        <div id="submenu" class="hidden mt-2 bg-white rounded-lg shadow-md p-2 absolute left-0 right-0 mx-4 z-50">
+          <a href="/pages/tut.html" class="block px-4 py-2 text-accent hover:bg-primary/10 rounded">
+            <i class="fa fa-graduation-cap mr-2"></i>嵌入式教程
+          </a>
+          <a href="/pages/tools.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+            <i class="fa fa-wrench mr-2"></i>开发工具
+          </a>
+          <a href="/pages/sensors.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+            <i class="fa fa-microchip mr-2"></i>传感器应用
+          </a>
+          <a href="/pages/iot.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+            <i class="fa fa-wifi mr-2"></i>物联网方案
+          </a>
+          <a href="/pages/open_source_projects.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+            <i class="fa fa-code-fork mr-2"></i>开源项目
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -140,8 +185,9 @@
           <h2 class="text-3xl font-bold mb-6 text-center">教程概览</h2>
           <p class="text-gray-600 mb-8 text-center">本教程将带领你从嵌入式开发的基础知识开始，逐步掌握主流微控制器的开发方法，最终能够独立完成实际项目开发。</p>
           
+          <!-- 使用文件2的卡片悬停效果类 -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div class="bg-gray-50 p-6 rounded-xl text-center">
+            <div class="bg-gray-50 p-6 rounded-xl text-center solution-card">
               <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i class="fa fa-book text-2xl text-primary"></i>
               </div>
@@ -149,7 +195,7 @@
               <p class="text-gray-600 text-sm">了解嵌入式系统概念、硬件基础和开发环境搭建</p>
             </div>
             
-            <div class="bg-gray-50 p-6 rounded-xl text-center">
+            <div class="bg-gray-50 p-6 rounded-xl text-center solution-card">
               <div class="w-16 h-16 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i class="fa fa-microchip text-2xl text-primary"></i>
               </div>
@@ -157,7 +203,7 @@
               <p class="text-gray-600 text-sm">通过实例学习三大主流微控制器的编程与应用</p>
             </div>
             
-            <div class="bg-gray-50 p-6 rounded-xl text-center">
+            <div class="bg-gray-50 p-6 rounded-xl text-center solution-card">
               <div class="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i class="fa fa-cogs text-2xl text-primary"></i>
               </div>
@@ -213,9 +259,9 @@
             </div>
           </div>
           
-          <!-- 章节内容 -->
+          <!-- 章节内容 - 使用统一的卡片样式 -->
           <!-- 章节1 -->
-          <div id="chapter1" class="tutorial-step bg-white p-8 rounded-xl shadow-md mb-10">
+          <div id="chapter1" class="tutorial-step bg-white p-8 rounded-xl shadow-md mb-10 solution-card">
             <div class="flex items-start mb-6">
               <div class="step-number w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-4">1</div>
               <div>
@@ -251,7 +297,7 @@
           </div>
           
           <!-- 章节2 -->
-          <div id="chapter2" class="tutorial-step bg-white p-8 rounded-xl shadow-md mb-10">
+          <div id="chapter2" class="tutorial-step bg-white p-8 rounded-xl shadow-md mb-10 solution-card">
             <div class="flex items-start mb-6">
               <div class="step-number w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-4">2</div>
               <div>
@@ -287,7 +333,7 @@
           </div>
           
           <!-- 章节3 -->
-          <div id="chapter3" class="tutorial-step bg-white p-8 rounded-xl shadow-md mb-10">
+          <div id="chapter3" class="tutorial-step bg-white p-8 rounded-xl shadow-md mb-10 solution-card">
             <div class="flex items-start mb-6">
               <div class="step-number w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-4">3</div>
               <div>
@@ -324,7 +370,7 @@
           </div>
           
           <!-- 章节6 -->
-          <div id="chapter6" class="tutorial-step bg-white p-8 rounded-xl shadow-md">
+          <div id="chapter6" class="tutorial-step bg-white p-8 rounded-xl shadow-md solution-card">
             <div class="flex items-start mb-6">
               <div class="step-number w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold mr-4">6</div>
               <div>
@@ -379,7 +425,7 @@
           <p class="text-gray-600 mb-10">除了本教程内容，这些资源也能帮助你更好地学习嵌入式开发</p>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <a href="https://github.com/linkyourbin/embedded-resources" target="_blank" class="block bg-gray-50 p-6 rounded-xl hover:shadow-md transition-custom">
+            <a href="https://github.com/linkyourbin/embedded-resources" target="_blank" class="block bg-gray-50 p-6 rounded-xl hover:shadow-md transition-custom solution-card">
               <div class="flex items-center justify-center h-12 mb-4">
                 <i class="fa fa-github text-3xl text-gray-700"></i>
               </div>
@@ -387,7 +433,7 @@
               <p class="text-gray-600 text-sm">包含各类示例代码、开发手册和项目文档</p>
             </a>
             
-            <a href="#" class="block bg-gray-50 p-6 rounded-xl hover:shadow-md transition-custom">
+            <a href="#" class="block bg-gray-50 p-6 rounded-xl hover:shadow-md transition-custom solution-card">
               <div class="flex items-center justify-center h-12 mb-4">
                 <i class="fa fa-book text-3xl text-gray-700"></i>
               </div>
@@ -395,7 +441,7 @@
               <p class="text-gray-600 text-sm">精选嵌入式开发相关书籍，从入门到进阶</p>
             </a>
             
-            <a href="#" class="block bg-gray-50 p-6 rounded-xl hover:shadow-md transition-custom">
+            <a href="#" class="block bg-gray-50 p-6 rounded-xl hover:shadow-md transition-custom solution-card">
               <div class="flex items-center justify-center h-12 mb-4">
                 <i class="fa fa-graduation-cap text-3xl text-gray-700"></i>
               </div>
@@ -403,7 +449,7 @@
               <p class="text-gray-600 text-sm">配套视频课程，更直观地学习开发技巧</p>
             </a>
             
-            <a href="/pages/contact.html" class="block bg-gray-50 p-6 rounded-xl hover:shadow-md transition-custom">
+            <a href="/pages/contact.html" class="block bg-gray-50 p-6 rounded-xl hover:shadow-md transition-custom solution-card">
               <div class="flex items-center justify-center h-12 mb-4">
                 <i class="fa fa-comments text-3xl text-gray-700"></i>
               </div>
@@ -416,7 +462,7 @@
     </section>
   </main>
 
-  <!-- 页脚 -->
+  <!-- 页脚 - 保持一致 -->
   <footer class="bg-gray-800 text-white py-10">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -452,7 +498,7 @@
     </div>
   </footer>
 
-  <!-- 交互脚本 -->
+  <!-- 交互脚本 - 整合文件2的移动端二级导航功能 -->
   <script>
     // 移动端菜单切换
     const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -474,6 +520,19 @@
         icon.classList.add('fa-times');
       }
     });
+
+    // 移动端二级导航菜单切换 - 与文件2保持一致
+    const submenuButton = document.getElementById('submenu-button');
+    const submenu = document.getElementById('submenu');
+    
+    if (submenuButton && submenu) {
+      submenuButton.addEventListener('click', () => {
+        submenu.classList.toggle('hidden');
+        const icon = submenuButton.querySelector('i');
+        icon.classList.toggle('fa-chevron-up');
+        icon.classList.toggle('fa-chevron-down');
+      });
+    }
 
     // 导航栏滚动效果
     window.addEventListener('scroll', () => {
