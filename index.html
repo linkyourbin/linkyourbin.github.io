@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Dev | Home</title>
+    <title>EmbeddedLab - 嵌入式开发实验室</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script>
@@ -11,265 +11,249 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#60A5FA', // 蓝色
-                        secondary: '#F9A8D4', // 粉色
-                        light: '#F8FAFC', // 白色
-                        dark: '#1E293B'
+                        primary: '#65B7C9', // 浅蓝色
+                        secondary: '#F8C8DC', // 浅粉色
+                        accent: '#9D65C9', // 粉紫色
+                        light: '#FFFFFF', // 白色
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace']
                     }
                 }
             }
         }
     </script>
     <style type="text/tailwindcss">
-        @layer utilities {
-            .text-shadow {
-                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-            .card-hover {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-            .card-hover:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 25px -5px rgba(96, 165, 250, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            }
+        /* 移除@apply，直接使用工具类或常规CSS */
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .transition-custom {
+            transition: all 0.3s ease;
+        }
+        .skill-icon {
+            transition: transform 0.3s ease;
+        }
+        .skill-icon:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
-<body class="bg-light text-dark font-sans">
-    <!-- Header with Navigation -->
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- 导航栏 -->
     <header class="sticky top-0 z-50 bg-white shadow-md">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="/" class="flex items-center space-x-2">
-                <img src="/assets/images/logo.png" alt="Embedded Developer Logo" class="h-10 w-auto">
-                <span class="text-xl font-bold text-primary">EmbeddedLab</span>
+                <span class="text-2xl font-bold text-primary">EmbeddedLab</span>
             </a>
             
-            <!-- Desktop Navigation -->
+            <!-- 桌面导航 -->
             <nav class="hidden md:flex space-x-8">
-                <a href="/" class="font-medium text-primary border-b-2 border-primary pb-1">Home</a>
-                <a href="/pages/projects.html" class="font-medium text-gray-600 hover:text-primary transition-colors">Projects</a>
-                <a href="/pages/chips.html" class="font-medium text-gray-600 hover:text-primary transition-colors">Chips</a>
-                <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-colors">About</a>
-                <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-colors">Contact</a>
+                <a href="/" class="font-medium text-primary hover:text-accent transition-custom">首页</a>
+                <a href="/pages/projects.html" class="font-medium text-gray-600 hover:text-primary transition-custom">项目</a>
+                <a href="/pages/chips.html" class="font-medium text-gray-600 hover:text-primary transition-custom">芯片</a>
+                <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-custom">关于</a>
+                <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-custom">联系</a>
             </nav>
             
-            <!-- Mobile Menu Button -->
+            <!-- 移动端菜单按钮 -->
             <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
                 <i class="fa fa-bars text-2xl"></i>
             </button>
         </div>
         
-        <!-- Mobile Navigation -->
+        <!-- 移动端导航 -->
         <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
             <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
-                <a href="/" class="font-medium text-primary py-2">Home</a>
-                <a href="/pages/projects.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Projects</a>
-                <a href="/pages/chips.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Chips</a>
-                <a href="/pages/about.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">About</a>
-                <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Contact</a>
+                <a href="/" class="font-medium text-primary py-2 hover:text-accent transition-custom">首页</a>
+                <a href="/pages/projects.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">项目</a>
+                <a href="/pages/chips.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">芯片</a>
+                <a href="/pages/about.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">关于</a>
+                <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">联系</a>
             </div>
         </div>
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section class="py-16 md:py-24 bg-gradient-to-br from-primary/10 to-secondary/10">
+        <!-- 英雄区域 -->
+        <section class="bg-gradient-to-r from-primary/90 to-accent/90 text-white py-16 md:py-24">
             <div class="container mx-auto px-4">
-                <div class="flex flex-col md:flex-row items-center gap-10">
-                    <div class="md:w-1/2">
-                        <h1 class="text-3xl md:text-5xl font-bold mb-6 text-dark">
-                            Embedded Systems <span class="text-primary">Developer</span>
-                        </h1>
-                        <p class="text-lg mb-8 text-gray-600">
-                            Specializing in STM32, ESP32, RP2040, and RP235x microcontrollers with expertise in C, Rust, and Python.
-                        </p>
-                        <div class="flex flex-wrap gap-4">
-                            <a href="/pages/projects.html" class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg font-medium transition-colors">
-                                View Projects
-                            </a>
-                            <a href="/pages/contact.html" class="bg-white hover:bg-gray-100 text-primary border border-primary px-6 py-3 rounded-lg font-medium transition-colors">
-                                Get In Touch
-                            </a>
-                        </div>
-                    </div>
-                    <div class="md:w-1/2">
-                        <img src="https://picsum.photos/id/180/600/400" alt="Embedded Development Workspace" class="rounded-xl shadow-xl w-full h-auto">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-shadow">嵌入式系统开发</h1>
+                    <p class="text-xl md:text-2xl mb-8 opacity-90">专注于 STM32、ESP32、RP2040、RP235x 等微控制器开发</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="/pages/projects.html" class="bg-white text-primary font-medium px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-custom">查看项目</a>
+                        <a href="/pages/contact.html" class="bg-transparent border-2 border-white text-white font-medium px-6 py-3 rounded-lg hover:bg-white/10 transition-custom">联系我</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
+        <!-- 技能区域 -->
         <section class="py-16 bg-white">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold mb-4">Skills & Expertise</h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto">Proficient in embedded systems development with experience across multiple platforms and languages.</p>
+                    <h2 class="text-3xl font-bold mb-4">编程语言</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">精通嵌入式开发常用编程语言，能够根据项目需求选择最合适的技术栈</p>
                 </div>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Microcontrollers Card -->
-                    <div class="bg-light rounded-xl p-6 shadow-md card-hover">
-                        <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                            <i class="fa fa-microchip text-2xl text-primary"></i>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    <!-- C语言 -->
+                    <div class="bg-gray-50 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-custom">
+                        <div class="w-24 h-24 mx-auto mb-4 bg-secondary/30 rounded-full flex items-center justify-center">
+                            <img src="/assets/images/logo_c.png" alt="C语言标志" class="w-16 h-16 object-contain skill-icon">
                         </div>
-                        <h3 class="text-xl font-semibold mb-3">Microcontrollers</h3>
-                        <ul class="text-gray-600 space-y-2">
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> STM32 Series</li>
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> ESP32/ESP8266</li>
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> RP2040</li>
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> RP235x</li>
-                        </ul>
+                        <h3 class="text-xl font-semibold mb-2">C语言</h3>
+                        <p class="text-gray-600">微控制器固件开发的基础，高效、直接访问硬件，广泛应用于各种嵌入式系统</p>
                     </div>
                     
-                    <!-- Languages Card -->
-                    <div class="bg-light rounded-xl p-6 shadow-md card-hover">
-                        <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                            <i class="fa fa-code text-2xl text-primary"></i>
+                    <!-- Rust -->
+                    <div class="bg-gray-50 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-custom">
+                        <div class="w-24 h-24 mx-auto mb-4 bg-primary/30 rounded-full flex items-center justify-center">
+                            <img src="/assets/images/logo_rust.png" alt="Rust语言标志" class="w-16 h-16 object-contain skill-icon">
                         </div>
-                        <h3 class="text-xl font-semibold mb-3">Programming</h3>
-                        <ul class="text-gray-600 space-y-2">
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> C/C++</li>
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> Rust</li>
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> Python</li>
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> Assembly</li>
-                        </ul>
+                        <h3 class="text-xl font-semibold mb-2">Rust</h3>
+                        <p class="text-gray-600">系统级编程语言，提供内存安全和高性能，适合开发可靠的嵌入式应用</p>
                     </div>
                     
-                    <!-- Tools Card -->
-                    <div class="bg-light rounded-xl p-6 shadow-md card-hover">
-                        <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                            <i class="fa fa-wrench text-2xl text-primary"></i>
+                    <!-- Python -->
+                    <div class="bg-gray-50 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-custom">
+                        <div class="w-24 h-24 mx-auto mb-4 bg-accent/30 rounded-full flex items-center justify-center">
+                            <img src="/assets/images/logo_python.png" alt="Python语言标志" class="w-16 h-16 object-contain skill-icon">
                         </div>
-                        <h3 class="text-xl font-semibold mb-3">Tools</h3>
-                        <ul class="text-gray-600 space-y-2">
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> GCC Toolchain</li>
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> Rust Embedded</li>
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> PlatformIO</li>
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> Git</li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Protocols Card -->
-                    <div class="bg-light rounded-xl p-6 shadow-md card-hover">
-                        <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                            <i class="fa fa-exchange text-2xl text-primary"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold mb-3">Protocols</h3>
-                        <ul class="text-gray-600 space-y-2">
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> I2C, SPI, UART</li>
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> CAN, Modbus</li>
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> WiFi, Bluetooth</li>
-                            <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> MQTT, HTTP</li>
-                        </ul>
+                        <h3 class="text-xl font-semibold mb-2">Python</h3>
+                        <p class="text-gray-600">简洁易用的脚本语言，适合快速原型开发、测试和嵌入式系统的上层控制逻辑</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Featured Projects -->
-        <section class="py-16 bg-gradient-to-br from-primary/5 to-secondary/5">
+        <!-- 芯片区域 -->
+        <section class="py-16 bg-gray-50">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold mb-4">Featured Projects</h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto">A selection of my recent embedded systems projects.</p>
+                    <h2 class="text-3xl font-bold mb-4">常用微控制器</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">丰富的微控制器开发经验，能够根据项目需求选择最合适的硬件平台</p>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project 1 -->
-                    <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                        <img src="https://picsum.photos/id/160/400/300" alt="STM32 Sensor Node" class="w-full h-48 object-cover">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                    <!-- STM32 -->
+                    <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-custom border-t-4 border-primary">
+                        <h3 class="text-lg font-semibold mb-2">STM32</h3>
+                        <p class="text-gray-600 text-sm">意法半导体32位ARM微控制器，性能强大，外设丰富，适合工业控制</p>
+                    </div>
+                    
+                    <!-- ESP32 -->
+                    <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-custom border-t-4 border-secondary">
+                        <h3 class="text-lg font-semibold mb-2">ESP32</h3>
+                        <p class="text-gray-600 text-sm">乐鑫Wi-Fi+蓝牙双模微控制器，性价比高，适合物联网应用开发</p>
+                    </div>
+                    
+                    <!-- RP2040 -->
+                    <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-custom border-t-4 border-accent">
+                        <h3 class="text-lg font-semibold mb-2">RP2040</h3>
+                        <p class="text-gray-600 text-sm">树莓派基金会微控制器，双核Cortex-M0+，灵活的PIO外设</p>
+                    </div>
+                    
+                    <!-- RP235x -->
+                    <div class="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-custom border-t-4 border-primary">
+                        <h3 class="text-lg font-semibold mb-2">RP235x</h3>
+                        <p class="text-gray-600 text-sm">RP2040升级版，更高性能，增加神经网络加速器，适合AI边缘计算</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-10">
+                    <a href="/pages/chips.html" class="inline-flex items-center text-primary font-medium hover:text-accent transition-custom">
+                        了解更多芯片 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 项目预览 -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold mb-4">精选项目</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">展示我的嵌入式开发项目，涵盖多种微控制器和编程语言</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- 项目1 -->
+                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-custom">
+                        <div class="h-48 bg-primary/20 flex items-center justify-center">
+                            <span class="text-primary font-medium">STM32 传感器节点</span>
+                        </div>
                         <div class="p-6">
-                            <div class="inline-block bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full mb-3">STM32</div>
-                            <h3 class="text-xl font-semibold mb-2">Environmental Sensor Node</h3>
-                            <p class="text-gray-600 mb-4">Low-power sensor node using STM32L0 for monitoring temperature, humidity and air quality.</p>
-                            <a href="/pages/projects.html" class="text-primary font-medium hover:underline flex items-center">
-                                View Project <i class="fa fa-arrow-right ml-2"></i>
-                            </a>
+                            <h3 class="text-xl font-semibold mb-2">环境监测系统</h3>
+                            <p class="text-gray-600 mb-4">基于STM32的多传感器数据采集系统，支持温湿度、光照和空气质量监测</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">STM32</span>
+                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">C</span>
+                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">传感器</span>
+                            </div>
+                            <a href="/pages/projects.html" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
                         </div>
                     </div>
                     
-                    <!-- Project 2 -->
-                    <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                        <img src="https://picsum.photos/id/119/400/300" alt="ESP32 IoT Device" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <div class="inline-block bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full mb-3">ESP32</div>
-                            <h3 class="text-xl font-semibold mb-2">IoT Home Automation</h3>
-                            <p class="text-gray-600 mb-4">WiFi-enabled home automation system with ESP32 and MQTT communication.</p>
-                            <a href="/pages/projects.html" class="text-primary font-medium hover:underline flex items-center">
-                                View Project <i class="fa fa-arrow-right ml-2"></i>
-                            </a>
+                    <!-- 项目2 -->
+                    <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-custom">
+                        <div class="h-48 bg-secondary/20 flex items-center justify-center">
+                            <span class="text-primary font-medium">ESP32 物联网设备</span>
                         </div>
-                    </div>
-                    
-                    <!-- Project 3 -->
-                    <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                        <img src="https://picsum.photos/id/118/400/300" alt="Rust on RP2040" class="w-full h-48 object-cover">
                         <div class="p-6">
-                            <div class="inline-block bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full mb-3">Rust</div>
-                            <h3 class="text-xl font-semibold mb-2">Rust on RP2040</h3>
-                            <p class="text-gray-600 mb-4">Rust firmware development for Raspberry Pi Pico with embedded-hal.</p>
-                            <a href="/pages/projects.html" class="text-primary font-medium hover:underline flex items-center">
-                                View Project <i class="fa fa-arrow-right ml-2"></i>
-                            </a>
+                            <h3 class="text-xl font-semibold mb-2">智能家居控制器</h3>
+                            <p class="text-gray-600 mb-4">基于ESP32的智能家居控制中心，支持Wi-Fi连接和多种家电控制</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">ESP32</span>
+                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">Python</span>
+                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">物联网</span>
+                            </div>
+                            <a href="/pages/projects.html" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
                         </div>
                     </div>
                 </div>
                 
                 <div class="text-center mt-10">
-                    <a href="/pages/projects.html" class="inline-block bg-white hover:bg-gray-50 text-primary border border-primary px-6 py-3 rounded-lg font-medium transition-colors">
-                        View All Projects
+                    <a href="/pages/projects.html" class="inline-block bg-primary text-white font-medium px-6 py-3 rounded-lg shadow hover:bg-primary/90 transition-custom">
+                        浏览所有项目
                     </a>
                 </div>
-            </div>
-        </section>
-
-        <!-- Call to Action -->
-        <section class="py-16 bg-primary text-white">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl font-bold mb-6">Interested in Working Together?</h2>
-                <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">Let's discuss your embedded systems project or collaboration opportunities.</p>
-                <a href="/pages/contact.html" class="bg-white text-primary hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors">
-                    Contact Me
-                </a>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-12">
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-10">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <div class="flex items-center space-x-2 mb-2">
-                        <img src="/assets/images/logo.png" alt="Embedded Developer Logo" class="h-8 w-auto">
-                        <span class="text-xl font-bold">EmbeddedLab</span>
-                    </div>
-                    <p class="text-gray-400">Embedded systems developer portfolio</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-primary">EmbeddedLab</h3>
+                    <p class="text-gray-400">专注于嵌入式系统开发，分享微控制器项目和技术经验</p>
                 </div>
                 
-                <div class="flex space-x-6 mb-6 md:mb-0">
-                    <a href="https://github.com/linkyourbin" target="_blank" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fa fa-github text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fa fa-linkedin text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fa fa-twitter text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fa fa-youtube-play text-2xl"></i>
-                    </a>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">快速链接</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/" class="hover:text-primary transition-custom">首页</a></li>
+                        <li><a href="/pages/projects.html" class="hover:text-primary transition-custom">项目</a></li>
+                        <li><a href="/pages/chips.html" class="hover:text-primary transition-custom">芯片</a></li>
+                        <li><a href="/pages/about.html" class="hover:text-primary transition-custom">关于</a></li>
+                        <li><a href="/pages/contact.html" class="hover:text-primary transition-custom">联系</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">联系我</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center"><i class="fa fa-envelope-o mr-2 text-primary"></i> contact@embeddedlab.com</li>
+                        <li class="flex items-center"><i class="fa fa-github mr-2 text-primary"></i> github.com/linkyourbin</li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 EmbeddedLab. All rights reserved.</p>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 EmbeddedLab. 保留所有权利。</p>
             </div>
         </div>
     </footer>
@@ -277,4 +261,3 @@
     <script src="/assets/js/scripts.js"></script>
 </body>
 </html>
-    

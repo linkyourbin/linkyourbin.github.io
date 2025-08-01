@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Dev | Chips</title>
+    <title>微控制器 | EmbeddedLab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script>
@@ -11,265 +11,214 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#60A5FA',
-                        secondary: '#F9A8D4',
-                        light: '#F8FAFC',
-                        dark: '#1E293B'
+                        primary: '#65B7C9', // 浅蓝色
+                        secondary: '#F8C8DC', // 浅粉色
+                        accent: '#9D65C9', // 粉紫色
+                        light: '#FFFFFF', // 白色
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace']
                     }
                 }
             }
         }
     </script>
     <style type="text/tailwindcss">
-        @layer utilities {
-            .chip-card {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-            .chip-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 25px -5px rgba(96, 165, 250, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            }
-            .feature-item {
-                @apply flex items-start mb-3;
-            }
-            .feature-item i {
-                @apply text-secondary mt-1 mr-3;
-            }
+        /* 移除@apply，直接使用工具类或常规CSS */
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .transition-custom {
+            transition: all 0.3s ease;
+        }
+        .chip-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .chip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
     </style>
 </head>
-<body class="bg-light text-dark font-sans">
-    <!-- Header with Navigation -->
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- 导航栏 -->
     <header class="sticky top-0 z-50 bg-white shadow-md">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="/" class="flex items-center space-x-2">
-                <img src="/assets/images/logo.png" alt="Embedded Developer Logo" class="h-10 w-auto">
-                <span class="text-xl font-bold text-primary">EmbeddedLab</span>
+                <span class="text-2xl font-bold text-primary">EmbeddedLab</span>
             </a>
             
-            <!-- Desktop Navigation -->
+            <!-- 桌面导航 -->
             <nav class="hidden md:flex space-x-8">
-                <a href="/" class="font-medium text-gray-600 hover:text-primary transition-colors">Home</a>
-                <a href="/pages/projects.html" class="font-medium text-gray-600 hover:text-primary transition-colors">Projects</a>
-                <a href="/pages/chips.html" class="font-medium text-primary border-b-2 border-primary pb-1">Chips</a>
-                <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-colors">About</a>
-                <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-colors">Contact</a>
+                <a href="/" class="font-medium text-gray-600 hover:text-primary transition-custom">首页</a>
+                <a href="/pages/projects.html" class="font-medium text-gray-600 hover:text-primary transition-custom">项目</a>
+                <a href="/pages/chips.html" class="font-medium text-primary hover:text-accent transition-custom">芯片</a>
+                <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-custom">关于</a>
+                <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-custom">联系</a>
             </nav>
             
-            <!-- Mobile Menu Button -->
+            <!-- 移动端菜单按钮 -->
             <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
                 <i class="fa fa-bars text-2xl"></i>
             </button>
         </div>
         
-        <!-- Mobile Navigation -->
+        <!-- 移动端导航 -->
         <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
             <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
-                <a href="/" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Home</a>
-                <a href="/pages/projects.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Projects</a>
-                <a href="/pages/chips.html" class="font-medium text-primary py-2">Chips</a>
-                <a href="/pages/about.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">About</a>
-                <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Contact</a>
+                <a href="/" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">首页</a>
+                <a href="/pages/projects.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">项目</a>
+                <a href="/pages/chips.html" class="font-medium text-primary py-2 hover:text-accent transition-custom">芯片</a>
+                <a href="/pages/about.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">关于</a>
+                <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">联系</a>
             </div>
         </div>
     </header>
 
     <main>
-        <!-- Page Header -->
-        <section class="py-16 bg-gradient-to-br from-primary/10 to-secondary/10">
-            <div class="container mx-auto px-4 text-center">
-                <h1 class="text-3xl md:text-5xl font-bold mb-4">Microcontrollers</h1>
-                <p class="text-lg max-w-2xl mx-auto text-gray-600">Experience with STM32, ESP32, RP2040, RP235x and other embedded platforms.</p>
+        <!-- 页面标题 -->
+        <section class="bg-gradient-to-r from-primary/90 to-accent/90 text-white py-12 md:py-16">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4 text-shadow">微控制器介绍</h1>
+                    <p class="text-lg md:text-xl opacity-90">深入了解STM32、ESP32、RP2040和RP235x等常用嵌入式芯片</p>
+                </div>
             </div>
         </section>
 
-        <!-- Chips Overview -->
+        <!-- 芯片介绍 -->
         <section class="py-16 bg-white">
             <div class="container mx-auto px-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- STM32 Card -->
-                    <div class="bg-light rounded-xl p-6 shadow-md chip-card border-t-4 border-primary">
-                        <div class="text-center mb-4">
-                            <i class="fa fa-microchip text-4xl text-primary mb-3"></i>
-                            <h3 class="text-xl font-bold">STM32</h3>
-                        </div>
-                        <p class="text-gray-600 text-center mb-4">ARM Cortex-M based microcontrollers with extensive peripheral sets.</p>
-                        <div class="text-center">
-                            <span class="inline-block bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full">Expert</span>
+                <div class="max-w-5xl mx-auto">
+                    <!-- STM32 -->
+                    <div class="mb-16 chip-card bg-gray-50 rounded-xl overflow-hidden shadow-md">
+                        <div class="md:flex">
+                            <div class="md:w-1/3 bg-primary/20 flex items-center justify-center p-6">
+                                <div class="w-full h-48 bg-white rounded-lg flex items-center justify-center">
+                                    <span class="text-primary font-bold text-2xl">STM32</span>
+                                </div>
+                            </div>
+                            <div class="md:w-2/3 p-6 md:p-8">
+                                <h2 class="text-2xl font-bold mb-4 text-primary">STM32系列</h2>
+                                <p class="text-gray-600 mb-4">STM32是意法半导体(STMicroelectronics)推出的32位ARM Cortex-M微控制器系列，包含多个子系列，从入门级到高性能产品应有尽有。</p>
+                                
+                                <h3 class="text-xl font-semibold mb-2 mt-6">主要特点</h3>
+                                <ul class="list-disc list-inside text-gray-600 mb-6 space-y-1">
+                                    <li>基于ARM Cortex-M0/M0+/M3/M4/M7/M33等内核</li>
+                                    <li>丰富的外设：ADC、DAC、定时器、UART、SPI、I2C等</li>
+                                    <li>工作频率从8MHz到480MHz不等</li>
+                                    <li>多种封装选项，从极小的QFN到较大的LQFP</li>
+                                    <li>内置Flash和RAM，部分型号支持外部存储器扩展</li>
+                                </ul>
+                                
+                                <h3 class="text-xl font-semibold mb-2">典型应用</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-primary/20 text-primary text-sm px-3 py-1 rounded-full">工业自动化</span>
+                                    <span class="bg-primary/20 text-primary text-sm px-3 py-1 rounded-full">医疗设备</span>
+                                    <span class="bg-primary/20 text-primary text-sm px-3 py-1 rounded-full">消费电子</span>
+                                    <span class="bg-primary/20 text-primary text-sm px-3 py-1 rounded-full">汽车电子</span>
+                                    <span class="bg-primary/20 text-primary text-sm px-3 py-1 rounded-full">智能家居</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- ESP32 Card -->
-                    <div class="bg-light rounded-xl p-6 shadow-md chip-card border-t-4 border-primary">
-                        <div class="text-center mb-4">
-                            <i class="fa fa-wifi text-4xl text-primary mb-3"></i>
-                            <h3 class="text-xl font-bold">ESP32</h3>
-                        </div>
-                        <p class="text-gray-600 text-center mb-4">WiFi and Bluetooth enabled microcontrollers with dual-core processors.</p>
-                        <div class="text-center">
-                            <span class="inline-block bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full">Expert</span>
+                    <!-- ESP32 -->
+                    <div class="mb-16 chip-card bg-gray-50 rounded-xl overflow-hidden shadow-md">
+                        <div class="md:flex">
+                            <div class="md:w-1/3 bg-secondary/20 flex items-center justify-center p-6">
+                                <div class="w-full h-48 bg-white rounded-lg flex items-center justify-center">
+                                    <span class="text-primary font-bold text-2xl">ESP32</span>
+                                </div>
+                            </div>
+                            <div class="md:w-2/3 p-6 md:p-8">
+                                <h2 class="text-2xl font-bold mb-4 text-primary">ESP32系列</h2>
+                                <p class="text-gray-600 mb-4">ESP32是乐鑫信息科技(ESPRESSIF)推出的高性能无线微控制器，集成了Wi-Fi和蓝牙功能，非常适合物联网(IoT)应用开发。</p>
+                                
+                                <h3 class="text-xl font-semibold mb-2 mt-6">主要特点</h3>
+                                <ul class="list-disc list-inside text-gray-600 mb-6 space-y-1">
+                                    <li>双核Tensilica Xtensa LX6处理器，主频高达240MHz</li>
+                                    <li>内置802.11b/g/n Wi-Fi和蓝牙4.2/BLE</li>
+                                    <li>丰富的外设接口，支持多种传感器和执行器</li>
+                                    <li>低功耗模式，适合电池供电设备</li>
+                                    <li>支持OTA(Over-The-Air)固件更新</li>
+                                </ul>
+                                
+                                <h3 class="text-xl font-semibold mb-2">典型应用</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-secondary/20 text-gray-700 text-sm px-3 py-1 rounded-full">物联网设备</span>
+                                    <span class="bg-secondary/20 text-gray-700 text-sm px-3 py-1 rounded-full">智能家居</span>
+                                    <span class="bg-secondary/20 text-gray-700 text-sm px-3 py-1 rounded-full">可穿戴设备</span>
+                                    <span class="bg-secondary/20 text-gray-700 text-sm px-3 py-1 rounded-full">无线传感器网络</span>
+                                    <span class="bg-secondary/20 text-gray-700 text-sm px-3 py-1 rounded-full">智能照明</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- RP2040 Card -->
-                    <div class="bg-light rounded-xl p-6 shadow-md chip-card border-t-4 border-primary">
-                        <div class="text-center mb-4">
-                            <i class="fa fa-microchip text-4xl text-primary mb-3"></i>
-                            <h3 class="text-xl font-bold">RP2040</h3>
-                        </div>
-                        <p class="text-gray-600 text-center mb-4">Dual-core ARM Cortex-M0+ microcontroller with PIO state machines.</p>
-                        <div class="text-center">
-                            <span class="inline-block bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full">Advanced</span>
+                    <!-- RP2040 -->
+                    <div class="mb-16 chip-card bg-gray-50 rounded-xl overflow-hidden shadow-md">
+                        <div class="md:flex">
+                            <div class="md:w-1/3 bg-accent/20 flex items-center justify-center p-6">
+                                <div class="w-full h-48 bg-white rounded-lg flex items-center justify-center">
+                                    <span class="text-primary font-bold text-2xl">RP2040</span>
+                                </div>
+                            </div>
+                            <div class="md:w-2/3 p-6 md:p-8">
+                                <h2 class="text-2xl font-bold mb-4 text-primary">RP2040</h2>
+                                <p class="text-gray-600 mb-4">RP2040是树莓派基金会(Raspberry Pi Foundation)推出的首款微控制器，采用双核ARM Cortex-M0+处理器，性价比极高。</p>
+                                
+                                <h3 class="text-xl font-semibold mb-2 mt-6">主要特点</h3>
+                                <ul class="list-disc list-inside text-gray-600 mb-6 space-y-1">
+                                    <li>双核ARM Cortex-M0+处理器，主频高达133MHz</li>
+                                    <li>独特的可编程I/O(PIO)外设，可模拟各种接口</li>
+                                    <li>264KB SRAM，支持外部Flash扩展</li>
+                                    <li>丰富的数字和模拟外设</li>
+                                    <li>开源SDK，支持C/C++和MicroPython</li>
+                                </ul>
+                                
+                                <h3 class="text-xl font-semibold mb-2">典型应用</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-accent/20 text-gray-700 text-sm px-3 py-1 rounded-full">教育项目</span>
+                                    <span class="bg-accent/20 text-gray-700 text-sm px-3 py-1 rounded-full">原型开发</span>
+                                    <span class="bg-accent/20 text-gray-700 text-sm px-3 py-1 rounded-full">机器人</span>
+                                    <span class="bg-accent/20 text-gray-700 text-sm px-3 py-1 rounded-full">游戏外设</span>
+                                    <span class="bg-accent/20 text-gray-700 text-sm px-3 py-1 rounded-full">数据采集</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- RP235x Card -->
-                    <div class="bg-light rounded-xl p-6 shadow-md chip-card border-t-4 border-primary">
-                        <div class="text-center mb-4">
-                            <i class="fa fa-microchip text-4xl text-primary mb-3"></i>
-                            <h3 class="text-xl font-bold">RP235x</h3>
-                        </div>
-                        <p class="text-gray-600 text-center mb-4">Latest Raspberry Pi microcontroller with ARM Cortex-M33 cores.</p>
-                        <div class="text-center">
-                            <span class="inline-block bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full">Proficient</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Detailed Chip Information -->
-        <section class="py-16 bg-light">
-            <div class="container mx-auto px-4">
-                <!-- STM32 Details -->
-                <div class="mb-16 bg-white rounded-xl overflow-hidden shadow-md">
-                    <div class="md:flex">
-                        <div class="md:w-1/3 bg-primary/5 p-8 flex items-center justify-center">
-                            <img src="https://picsum.photos/id/1/400/400" alt="STM32 Microcontroller" class="max-h-64">
-                        </div>
-                        <div class="md:w-2/3 p-8">
-                            <h2 class="text-2xl font-bold mb-4 text-primary">STM32 Series</h2>
-                            <p class="text-gray-600 mb-6">STMicroelectronics' STM32 family is one of the most versatile microcontroller lines available, featuring ARM Cortex-M0, M0+, M3, M4, M7, and M33 cores. I've worked extensively with various STM32 models including the F1, F4, L0, and H7 series.</p>
-                            
-                            <h3 class="text-xl font-semibold mb-3">Key Features & Experience:</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>Advanced timer configurations for motor control</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>DMA for efficient peripheral data transfer</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>Low-power modes for battery-operated devices</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>CMSIS and HAL libraries proficiency</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>RTOS implementation (FreeRTOS, Zephyr)</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>USB device and host implementations</span>
+                    <!-- RP235x -->
+                    <div class="chip-card bg-gray-50 rounded-xl overflow-hidden shadow-md">
+                        <div class="md:flex">
+                            <div class="md:w-1/3 bg-primary/20 flex items-center justify-center p-6">
+                                <div class="w-full h-48 bg-white rounded-lg flex items-center justify-center">
+                                    <span class="text-primary font-bold text-2xl">RP235x</span>
                                 </div>
                             </div>
-                            
-                            <a href="/pages/projects.html" class="inline-block text-primary font-medium hover:underline">View STM32 Projects <i class="fa fa-arrow-right ml-1"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- ESP32 Details -->
-                <div class="mb-16 bg-white rounded-xl overflow-hidden shadow-md">
-                    <div class="md:flex">
-                        <div class="md:w-1/3 bg-primary/5 p-8 flex items-center justify-center">
-                            <img src="https://picsum.photos/id/2/400/400" alt="ESP32 Microcontroller" class="max-h-64">
-                        </div>
-                        <div class="md:w-2/3 p-8">
-                            <h2 class="text-2xl font-bold mb-4 text-primary">ESP32 Series</h2>
-                            <p class="text-gray-600 mb-6">Espressif's ESP32 microcontrollers have revolutionized IoT development with their built-in WiFi and Bluetooth capabilities. I've worked with various ESP32 variants including the ESP32-C3, ESP32-S3, and ESP32-C6.</p>
-                            
-                            <h3 class="text-xl font-semibold mb-3">Key Features & Experience:</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>WiFi (802.11 b/g/n) and Bluetooth Classic/BLE</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>IoT protocol implementation (MQTT, CoAP, HTTP)</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>OTA (Over-The-Air) firmware updates</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>MicroPython and Arduino framework experience</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>Secure communication with TLS/SSL</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>Power management for battery efficiency</span>
+                            <div class="md:w-2/3 p-6 md:p-8">
+                                <h2 class="text-2xl font-bold mb-4 text-primary">RP235x系列</h2>
+                                <p class="text-gray-600 mb-4">RP235x是RP2040的升级版本，性能更强大，增加了神经网络加速器，非常适合需要边缘计算能力的嵌入式应用。</p>
+                                
+                                <h3 class="text-xl font-semibold mb-2 mt-6">主要特点</h3>
+                                <ul class="list-disc list-inside text-gray-600 mb-6 space-y-1">
+                                    <li>双核ARM Cortex-M33处理器，主频高达300MHz</li>
+                                    <li>集成神经网络加速器(NPU)，支持AI推理</li>
+                                    <li>兼容RP2040的PIO外设，增加了新功能</li>
+                                    <li>512KB SRAM，支持外部Flash扩展</li>
+                                    <li>改进的电源管理，更低的功耗</li>
+                                </ul>
+                                
+                                <h3 class="text-xl font-semibold mb-2">典型应用</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-primary/20 text-primary text-sm px-3 py-1 rounded-full">智能传感器</span>
+                                    <span class="bg-primary/20 text-primary text-sm px-3 py-1 rounded-full">计算机视觉</span>
+                                    <span class="bg-primary/20 text-primary text-sm px-3 py-1 rounded-full">语音识别</span>
+                                    <span class="bg-primary/20 text-primary text-sm px-3 py-1 rounded-full">边缘计算</span>
+                                    <span class="bg-primary/20 text-primary text-sm px-3 py-1 rounded-full">智能设备</span>
                                 </div>
                             </div>
-                            
-                            <a href="/pages/projects.html" class="inline-block text-primary font-medium hover:underline">View ESP32 Projects <i class="fa fa-arrow-right ml-1"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- RP2040 & RP235x Details -->
-                <div class="bg-white rounded-xl overflow-hidden shadow-md">
-                    <div class="md:flex">
-                        <div class="md:w-1/3 bg-primary/5 p-8 flex items-center justify-center">
-                            <img src="https://picsum.photos/id/3/400/400" alt="Raspberry Pi Microcontrollers" class="max-h-64">
-                        </div>
-                        <div class="md:w-2/3 p-8">
-                            <h2 class="text-2xl font-bold mb-4 text-primary">RP2040 & RP235x</h2>
-                            <p class="text-gray-600 mb-6">Raspberry Pi's entry into microcontrollers with the RP2040 and its successor RP235x offer unique capabilities with their PIO (Programmable I/O) state machines and powerful processing cores.</p>
-                            
-                            <h3 class="text-xl font-semibold mb-3">Key Features & Experience:</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>PIO programming for custom peripherals</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>Rust embedded development with embassy</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>RP235x's Cortex-M33 and DSP capabilities</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>UF2 bootloader and easy programming</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>W5500 Ethernet and connectivity expansions</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fa fa-check-circle"></i>
-                                    <span>Low-cost development with Raspberry Pi Pico</span>
-                                </div>
-                            </div>
-                            
-                            <a href="/pages/projects.html" class="inline-block text-primary font-medium hover:underline">View RP Projects <i class="fa fa-arrow-right ml-1"></i></a>
                         </div>
                     </div>
                 </div>
@@ -277,36 +226,37 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-12">
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-10">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <div class="flex items-center space-x-2 mb-2">
-                        <img src="/assets/images/logo.png" alt="Embedded Developer Logo" class="h-8 w-auto">
-                        <span class="text-xl font-bold">EmbeddedLab</span>
-                    </div>
-                    <p class="text-gray-400">Embedded systems developer portfolio</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-primary">EmbeddedLab</h3>
+                    <p class="text-gray-400">专注于嵌入式系统开发，分享微控制器项目和技术经验</p>
                 </div>
                 
-                <div class="flex space-x-6 mb-6 md:mb-0">
-                    <a href="https://github.com/linkyourbin" target="_blank" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fa fa-github text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fa fa-linkedin text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fa fa-twitter text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fa fa-youtube-play text-2xl"></i>
-                    </a>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">快速链接</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/" class="hover:text-primary transition-custom">首页</a></li>
+                        <li><a href="/pages/projects.html" class="hover:text-primary transition-custom">项目</a></li>
+                        <li><a href="/pages/chips.html" class="hover:text-primary transition-custom">芯片</a></li>
+                        <li><a href="/pages/about.html" class="hover:text-primary transition-custom">关于</a></li>
+                        <li><a href="/pages/contact.html" class="hover:text-primary transition-custom">联系</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">联系我</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center"><i class="fa fa-envelope-o mr-2 text-primary"></i> contact@embeddedlab.com</li>
+                        <li class="flex items-center"><i class="fa fa-github mr-2 text-primary"></i> github.com/linkyourbin</li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 EmbeddedLab. All rights reserved.</p>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 EmbeddedLab. 保留所有权利。</p>
             </div>
         </div>
     </footer>
@@ -314,4 +264,3 @@
     <script src="/assets/js/scripts.js"></script>
 </body>
 </html>
-    

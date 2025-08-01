@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Dev | Projects</title>
+    <title>项目展示 | EmbeddedLab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script>
@@ -11,194 +11,234 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#60A5FA',
-                        secondary: '#F9A8D4',
-                        light: '#F8FAFC',
-                        dark: '#1E293B'
+                        primary: '#65B7C9', // 浅蓝色
+                        secondary: '#F8C8DC', // 浅粉色
+                        accent: '#9D65C9', // 粉紫色
+                        light: '#FFFFFF', // 白色
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace']
                     }
                 }
             }
         }
     </script>
     <style type="text/tailwindcss">
-        @layer utilities {
-            .card-hover {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-            .card-hover:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 25px -5px rgba(96, 165, 250, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            }
+        /* 移除@apply，直接使用工具类或常规CSS */
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .transition-custom {
+            transition: all 0.3s ease;
+        }
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .filter-active {
+            background-color: #65B7C9;
+            color: white;
         }
     </style>
 </head>
-<body class="bg-light text-dark font-sans">
-    <!-- Header with Navigation -->
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- 导航栏 -->
     <header class="sticky top-0 z-50 bg-white shadow-md">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <a href="/" class="flex items-center space-x-2">
-                <img src="/assets/images/logo.png" alt="Embedded Developer Logo" class="h-10 w-auto">
-                <span class="text-xl font-bold text-primary">EmbeddedLab</span>
+                <span class="text-2xl font-bold text-primary">EmbeddedLab</span>
             </a>
             
-            <!-- Desktop Navigation -->
+            <!-- 桌面导航 -->
             <nav class="hidden md:flex space-x-8">
-                <a href="/" class="font-medium text-gray-600 hover:text-primary transition-colors">Home</a>
-                <a href="/pages/projects.html" class="font-medium text-primary border-b-2 border-primary pb-1">Projects</a>
-                <a href="/pages/chips.html" class="font-medium text-gray-600 hover:text-primary transition-colors">Chips</a>
-                <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-colors">About</a>
-                <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-colors">Contact</a>
+                <a href="/" class="font-medium text-gray-600 hover:text-primary transition-custom">首页</a>
+                <a href="/pages/projects.html" class="font-medium text-primary hover:text-accent transition-custom">项目</a>
+                <a href="/pages/chips.html" class="font-medium text-gray-600 hover:text-primary transition-custom">芯片</a>
+                <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-custom">关于</a>
+                <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-custom">联系</a>
             </nav>
             
-            <!-- Mobile Menu Button -->
+            <!-- 移动端菜单按钮 -->
             <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
                 <i class="fa fa-bars text-2xl"></i>
             </button>
         </div>
         
-        <!-- Mobile Navigation -->
+        <!-- 移动端导航 -->
         <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
             <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
-                <a href="/" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Home</a>
-                <a href="/pages/projects.html" class="font-medium text-primary py-2">Projects</a>
-                <a href="/pages/chips.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Chips</a>
-                <a href="/pages/about.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">About</a>
-                <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-colors">Contact</a>
+                <a href="/" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">首页</a>
+                <a href="/pages/projects.html" class="font-medium text-primary py-2 hover:text-accent transition-custom">项目</a>
+                <a href="/pages/chips.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">芯片</a>
+                <a href="/pages/about.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">关于</a>
+                <a href="/pages/contact.html" class="font-medium text-gray-600 py-2 hover:text-primary transition-custom">联系</a>
             </div>
         </div>
     </header>
 
     <main>
-        <!-- Page Header -->
-        <section class="py-16 bg-gradient-to-br from-primary/10 to-secondary/10">
-            <div class="container mx-auto px-4 text-center">
-                <h1 class="text-3xl md:text-5xl font-bold mb-4">My Projects</h1>
-                <p class="text-lg max-w-2xl mx-auto text-gray-600">A collection of embedded systems projects using STM32, ESP32, RP2040, and more.</p>
-            </div>
-        </section>
-
-        <!-- Projects Filter -->
-        <section class="py-8 bg-white">
+        <!-- 页面标题 -->
+        <section class="bg-gradient-to-r from-primary/90 to-accent/90 text-white py-12 md:py-16">
             <div class="container mx-auto px-4">
-                <div class="flex flex-wrap justify-center gap-3">
-                    <button class="bg-primary text-white px-4 py-2 rounded-full text-sm font-medium">All Projects</button>
-                    <button class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition-colors">STM32</button>
-                    <button class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition-colors">ESP32</button>
-                    <button class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition-colors">RP2040</button>
-                    <button class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition-colors">Rust</button>
-                    <button class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition-colors">C</button>
-                    <button class="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full text-sm font-medium transition-colors">Python</button>
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4 text-shadow">项目展示</h1>
+                    <p class="text-lg md:text-xl opacity-90">探索我的嵌入式开发项目，涵盖多种微控制器和编程语言</p>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Grid -->
-        <section class="py-12 bg-light">
+        <!-- 项目过滤 -->
+        <section class="py-8 bg-white">
             <div class="container mx-auto px-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project 1 -->
-                    <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                        <img src="https://picsum.photos/id/160/400/300" alt="STM32 Environmental Sensor" class="w-full h-48 object-cover">
+                <div class="max-w-5xl mx-auto">
+                    <div class="flex flex-wrap gap-2 justify-center mb-4">
+                        <button class="filter-btn filter-active px-4 py-2 rounded-full text-sm font-medium transition-custom" data-filter="all">全部项目</button>
+                        <button class="filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-filter="stm32">STM32</button>
+                        <button class="filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-filter="esp32">ESP32</button>
+                        <button class="filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-filter="rp2040">RP2040</button>
+                        <button class="filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-filter="rp235x">RP235x</button>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button class="lang-filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-lang="all">所有语言</button>
+                        <button class="lang-filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-lang="c">
+                            <img src="/assets/images/logo_c.png" alt="C语言" class="inline-block w-4 h-4 mr-1"> C
+                        </button>
+                        <button class="lang-filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-lang="rust">
+                            <img src="/assets/images/logo_rust.png" alt="Rust语言" class="inline-block w-4 h-4 mr-1"> Rust
+                        </button>
+                        <button class="lang-filter-btn px-4 py-2 bg-gray-100 rounded-full text-sm font-medium transition-custom" data-lang="python">
+                            <img src="/assets/images/logo_python.png" alt="Python语言" class="inline-block w-4 h-4 mr-1"> Python
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 项目列表 -->
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- 项目1 -->
+                    <div class="project-card bg-white rounded-xl overflow-hidden shadow-md" data-category="stm32" data-language="c">
+                        <div class="h-48 bg-primary/20 flex items-center justify-center">
+                            <span class="text-primary font-medium">STM32 传感器节点</span>
+                        </div>
                         <div class="p-6">
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">STM32</span>
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">C</span>
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">Sensors</span>
+                            <h3 class="text-xl font-semibold mb-2">环境监测系统</h3>
+                            <p class="text-gray-600 mb-4">基于STM32的多传感器数据采集系统，支持温湿度、光照和空气质量监测</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">STM32</span>
+                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">C</span>
+                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">传感器</span>
                             </div>
-                            <h3 class="text-xl font-semibold mb-2">Environmental Sensor Node</h3>
-                            <p class="text-gray-600 mb-4">Low-power sensor node using STM32L051 for monitoring temperature, humidity, and air quality with LoRa communication.</p>
-                            <a href="#" class="text-primary font-medium hover:underline flex items-center">
-                                View Details <i class="fa fa-arrow-right ml-2"></i>
-                            </a>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">完成于 2023年3月</span>
+                                <a href="#" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Project 2 -->
-                    <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                        <img src="https://picsum.photos/id/119/400/300" alt="ESP32 Home Automation" class="w-full h-48 object-cover">
+                    <!-- 项目2 -->
+                    <div class="project-card bg-white rounded-xl overflow-hidden shadow-md" data-category="esp32" data-language="python">
+                        <div class="h-48 bg-secondary/20 flex items-center justify-center">
+                            <span class="text-primary font-medium">ESP32 物联网设备</span>
+                        </div>
                         <div class="p-6">
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">ESP32</span>
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">C++</span>
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">IoT</span>
+                            <h3 class="text-xl font-semibold mb-2">智能家居控制器</h3>
+                            <p class="text-gray-600 mb-4">基于ESP32的智能家居控制中心，支持Wi-Fi连接和多种家电控制</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">ESP32</span>
+                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">Python</span>
+                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">物联网</span>
                             </div>
-                            <h3 class="text-xl font-semibold mb-2">WiFi Home Automation Hub</h3>
-                            <p class="text-gray-600 mb-4">ESP32-based home automation system with MQTT support, controlling lights, temperature, and security devices.</p>
-                            <a href="#" class="text-primary font-medium hover:underline flex items-center">
-                                View Details <i class="fa fa-arrow-right ml-2"></i>
-                            </a>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">完成于 2023年5月</span>
+                                <a href="#" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Project 3 -->
-                    <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                        <img src="https://picsum.photos/id/118/400/300" alt="Rust on RP2040" class="w-full h-48 object-cover">
+                    <!-- 项目3 -->
+                    <div class="project-card bg-white rounded-xl overflow-hidden shadow-md" data-category="rp2040" data-language="rust">
+                        <div class="h-48 bg-accent/20 flex items-center justify-center">
+                            <span class="text-primary font-medium">RP2040 开发板</span>
+                        </div>
                         <div class="p-6">
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">RP2040</span>
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">Rust</span>
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">Firmware</span>
+                            <h3 class="text-xl font-semibold mb-2">游戏手柄控制器</h3>
+                            <p class="text-gray-600 mb-4">基于RP2040的自定义游戏手柄，使用Rust开发，支持USB和蓝牙连接</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">RP2040</span>
+                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">Rust</span>
+                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">游戏外设</span>
                             </div>
-                            <h3 class="text-xl font-semibold mb-2">Rust Firmware for RP2040</h3>
-                            <p class="text-gray-600 mb-4">Rust implementation for Raspberry Pi Pico with embedded-hal, demonstrating GPIO, UART, and I2C peripherals.</p>
-                            <a href="#" class="text-primary font-medium hover:underline flex items-center">
-                                View Details <i class="fa fa-arrow-right ml-2"></i>
-                            </a>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">完成于 2023年7月</span>
+                                <a href="#" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Project 4 -->
-                    <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                        <img src="https://picsum.photos/id/96/400/300" alt="STM32 Motor Controller" class="w-full h-48 object-cover">
+                    <!-- 项目4 -->
+                    <div class="project-card bg-white rounded-xl overflow-hidden shadow-md" data-category="rp235x" data-language="rust">
+                        <div class="h-48 bg-primary/20 flex items-center justify-center">
+                            <span class="text-primary font-medium">RP235x AI项目</span>
+                        </div>
                         <div class="p-6">
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">STM32</span>
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">C</span>
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">Robotics</span>
+                            <h3 class="text-xl font-semibold mb-2">图像识别系统</h3>
+                            <p class="text-gray-600 mb-4">基于RP235x的嵌入式图像识别系统，利用NPU加速实现实时物体检测</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">RP235x</span>
+                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">Rust</span>
+                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">AI识别</span>
                             </div>
-                            <h3 class="text-xl font-semibold mb-2">Brushless Motor Controller</h3>
-                            <p class="text-gray-600 mb-4">STM32F4-based BLDC motor controller with sensorless commutation and PID speed control algorithm.</p>
-                            <a href="#" class="text-primary font-medium hover:underline flex items-center">
-                                View Details <i class="fa fa-arrow-right ml-2"></i>
-                            </a>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">完成于 2023年9月</span>
+                                <a href="#" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Project 5 -->
-                    <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                        <img src="https://picsum.photos/id/180/400/300" alt="ESP32 Weather Station" class="w-full h-48 object-cover">
+                    <!-- 项目5 -->
+                    <div class="project-card bg-white rounded-xl overflow-hidden shadow-md" data-category="stm32" data-language="c">
+                        <div class="h-48 bg-secondary/20 flex items-center justify-center">
+                            <span class="text-primary font-medium">STM32 工业控制</span>
+                        </div>
                         <div class="p-6">
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">ESP32</span>
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">Python</span>
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">MicroPython</span>
+                            <h3 class="text-xl font-semibold mb-2">电机控制系统</h3>
+                            <p class="text-gray-600 mb-4">基于STM32的高精度电机控制系统，支持多种控制算法和实时监控</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">STM32</span>
+                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">C</span>
+                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">工业控制</span>
                             </div>
-                            <h3 class="text-xl font-semibold mb-2">Weather Station with MicroPython</h3>
-                            <p class="text-gray-600 mb-4">ESP32 weather station using MicroPython, collecting data and sending to cloud via HTTP/HTTPS.</p>
-                            <a href="#" class="text-primary font-medium hover:underline flex items-center">
-                                View Details <i class="fa fa-arrow-right ml-2"></i>
-                            </a>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">完成于 2023年11月</span>
+                                <a href="#" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Project 6 -->
-                    <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
-                        <img src="https://picsum.photos/id/169/400/300" alt="RP235x Audio Player" class="w-full h-48 object-cover">
+                    <!-- 项目6 -->
+                    <div class="project-card bg-white rounded-xl overflow-hidden shadow-md" data-category="esp32" data-language="python">
+                        <div class="h-48 bg-accent/20 flex items-center justify-center">
+                            <span class="text-primary font-medium">ESP32 网关</span>
+                        </div>
                         <div class="p-6">
-                            <div class="flex flex-wrap gap-2 mb-3">
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">RP235x</span>
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">C</span>
-                                <span class="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">Audio</span>
+                            <h3 class="text-xl font-semibold mb-2">LoRaWAN网关</h3>
+                            <p class="text-gray-600 mb-4">基于ESP32和LoRa模块的物联网网关，支持多种传感器网络接入</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-primary/20 text-primary text-xs px-3 py-1 rounded-full">ESP32</span>
+                                <span class="bg-secondary/20 text-gray-700 text-xs px-3 py-1 rounded-full">Python</span>
+                                <span class="bg-accent/20 text-gray-700 text-xs px-3 py-1 rounded-full">LoRaWAN</span>
                             </div>
-                            <h3 class="text-xl font-semibold mb-2">Audio Player with RP235x</h3>
-                            <p class="text-gray-600 mb-4">Portable audio player using the new RP235x microcontroller with I2S audio output and SD card support.</p>
-                            <a href="#" class="text-primary font-medium hover:underline flex items-center">
-                                View Details <i class="fa fa-arrow-right ml-2"></i>
-                            </a>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">完成于 2024年1月</span>
+                                <a href="#" class="text-primary font-medium hover:text-accent transition-custom">查看详情</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -206,36 +246,37 @@
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-12">
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-10">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <div class="flex items-center space-x-2 mb-2">
-                        <img src="/assets/images/logo.png" alt="Embedded Developer Logo" class="h-8 w-auto">
-                        <span class="text-xl font-bold">EmbeddedLab</span>
-                    </div>
-                    <p class="text-gray-400">Embedded systems developer portfolio</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-primary">EmbeddedLab</h3>
+                    <p class="text-gray-400">专注于嵌入式系统开发，分享微控制器项目和技术经验</p>
                 </div>
                 
-                <div class="flex space-x-6 mb-6 md:mb-0">
-                    <a href="https://github.com/linkyourbin" target="_blank" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fa fa-github text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fa fa-linkedin text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fa fa-twitter text-2xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i class="fa fa-youtube-play text-2xl"></i>
-                    </a>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">快速链接</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/" class="hover:text-primary transition-custom">首页</a></li>
+                        <li><a href="/pages/projects.html" class="hover:text-primary transition-custom">项目</a></li>
+                        <li><a href="/pages/chips.html" class="hover:text-primary transition-custom">芯片</a></li>
+                        <li><a href="/pages/about.html" class="hover:text-primary transition-custom">关于</a></li>
+                        <li><a href="/pages/contact.html" class="hover:text-primary transition-custom">联系</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">联系我</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center"><i class="fa fa-envelope-o mr-2 text-primary"></i> contact@embeddedlab.com</li>
+                        <li class="flex items-center"><i class="fa fa-github mr-2 text-primary"></i> github.com/linkyourbin</li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 EmbeddedLab. All rights reserved.</p>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
+                <p>&copy; 2024 EmbeddedLab. 保留所有权利。</p>
             </div>
         </div>
     </footer>
@@ -243,4 +284,3 @@
     <script src="/assets/js/scripts.js"></script>
 </body>
 </html>
-    

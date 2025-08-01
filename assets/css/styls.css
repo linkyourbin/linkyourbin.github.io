@@ -1,108 +1,78 @@
 /* 全局样式补充 */
-body {
+html {
     scroll-behavior: smooth;
 }
 
-/* 自定义滚动条 */
-::-webkit-scrollbar {
-    width: 8px;
+body {
+    overflow-x: hidden;
 }
 
-::-webkit-scrollbar-track {
-    background: #f1f5f9;
+/* 图片样式 */
+img {
+    max-width: 100%;
+    height: auto;
 }
 
-::-webkit-scrollbar-thumb {
-    background: #94a3b8;
-    border-radius: 4px;
+/* 卡片悬停效果增强 */
+.card-hover {
+    transition: all 0.3s ease;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #60A5FA;
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* 加载动画 */
-.loader {
-    border-top-color: #60A5FA;
-    animation: spinner 0.6s linear infinite;
+/* 按钮样式增强 */
+.btn-primary {
+    @apply bg-primary text-white font-medium px-6 py-3 rounded-lg shadow hover:bg-primary/90 transition-custom;
 }
 
-@keyframes spinner {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.btn-secondary {
+    @apply bg-transparent border-2 border-primary text-primary font-medium px-6 py-3 rounded-lg hover:bg-primary/10 transition-custom;
 }
 
-/* 代码块样式 */
-code {
-    font-family: 'Fira Code', monospace;
-    background-color: #f1f5f9;
-    padding: 0.2em 0.4em;
-    border-radius: 0.25rem;
-    font-size: 0.95em;
+/* 表单元素焦点样式 */
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(101, 183, 201, 0.2);
+    border-color: #65B7C9;
 }
 
-pre {
-    background-color: #f1f5f9;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    overflow-x: auto;
-    margin: 1rem 0;
+/* 导航栏滚动效果 */
+header.scrolled {
+    @apply bg-white/95 backdrop-blur-sm;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-pre code {
-    padding: 0;
-    background-color: transparent;
+/* 页面过渡动画 */
+.page-transition {
+    animation: fadeIn 0.5s ease-in-out;
 }
 
-/* 图片悬停效果 */
-.img-hover-zoom {
-    overflow: hidden;
-}
-
-.img-hover-zoom img {
-    transition: transform 0.5s ease;
-}
-
-.img-hover-zoom:hover img {
-    transform: scale(1.05);
-}
-
-/* 表单提交按钮动画 */
-.btn-submit {
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-submit:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 5px;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.5);
-    opacity: 0;
-    border-radius: 100%;
-    transform: scale(1, 1) translate(-50%);
-    transform-origin: 50% 50%;
-}
-
-@keyframes ripple {
-    0% {
-        transform: scale(0, 0);
-        opacity: 1;
-    }
-    20% {
-        transform: scale(25, 25);
-        opacity: 1;
-    }
-    100% {
+@keyframes fadeIn {
+    from {
         opacity: 0;
-        transform: scale(40, 40);
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-.btn-submit:focus:not(:active)::after {
-    animation: ripple 1s ease-out;
-}
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
     
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
