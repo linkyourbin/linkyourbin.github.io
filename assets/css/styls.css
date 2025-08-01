@@ -416,7 +416,7 @@ p {
 
 /* 页脚样式 */
 footer {
-    background-color: var(#e65a9e);
+    background-color: var(--dark-gray);
     color: var(--white);
     padding: 3rem 5% 1rem;
 }
