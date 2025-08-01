@@ -56,9 +56,9 @@
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
-  <!-- 主导航栏 -->
+  <!-- 主导航栏：网站主导航区域 -->
   <header class="sticky top-0 z-50 bg-white shadow-md transition-custom">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="container mx-auto px-4 py-3 flex justify-between justify-between items-center">
       <a href="/" class="flex items-center space-x-2" aria-label="返回首页">
         <span class="text-2xl font-bold text-primary">linkyourbin</span>
       </a>
@@ -87,7 +87,7 @@
       </div>
     </div>
   </header>
-  <!-- 二级导航栏 - 增强视觉效果 -->
+  <!-- 二级导航栏：技术分类导航 -->
   <div class="bg-primary/20 border-b-2 border-primary py-3 shadow-md">
     <div class="container mx-auto px-4">
       <nav class="hidden md:flex space-x-8" aria-label="二级导航">
@@ -115,19 +115,19 @@
         </button>
         <!-- 确保默认有 hidden 类 -->
         <div id="submenu" class="hidden mt-2 bg-white rounded-lg shadow-md p-2 absolute left-0 right-0 mx-4 z-50">
-          <a href="/pages/tut.html" class="block px-4 py-2 text-accent hover:bg-primary/10 rounded">
+          <a href="/pages/tut.html" class="submenu-item block px-4 py-2 text-accent hover:bg-primary/10 rounded">
             <i class="fa fa-graduation-cap mr-2"></i>嵌入式教程
           </a>
-          <a href="/pages/tools.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+          <a href="/pages/tools.html" class="submenu-item block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
             <i class="fa fa-wrench mr-2"></i>开发工具
           </a>
-          <a href="/pages/sensors.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+          <a href="/pages/sensors.html" class="submenu-item block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
             <i class="fa fa-microchip mr-2"></i>传感器应用
           </a>
-          <a href="/pages/iot.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+          <a href="/pages/iot.html" class="submenu-item block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
             <i class="fa fa-wifi mr-2"></i>物联网方案
           </a>
-          <a href="/pages/open-source.html" class="block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
+          <a href="/pages/open-source.html" class="submenu-item block px-4 py-2 text-gray-600 hover:bg-primary/10 rounded">
             <i class="fa fa-code-fork mr-2"></i>开源项目
           </a>
         </div>
@@ -135,7 +135,7 @@
     </div>
   </div>
   <main>
-    <!-- 英雄区域 -->
+    <!-- 顶部横幅区域：展示网站核心定位 -->
     <section class="bg-gradient-to-r from-primary/90 to-accent/90 text-white py-16 md:py-24">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
@@ -152,19 +152,19 @@
         </div>
       </div>
     </section>
-    <!-- 技能区域 -->
-    <section class="py-16 bg-white" id="skills">
+    <!-- 编程语言展示区：介绍嵌入式开发常用语言 -->
+    <section class="py-16 bg-white" id="programming-languages">
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold mb-4">编程语言</h2>
-          <p class="text-gray-600 max-w-2xl mx-auto">精通嵌入式嵌入式开发常用编程语言，能够根据项目需求选择最合适的技术栈</p>
+          <p class="text-gray-600 max-w-2xl mx-auto">精通嵌入式开发常用编程语言，能够根据项目需求选择最合适的技术栈</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
           <!-- C语言 -->
           <div class="bg-gray-50 rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-custom transform hover:-translate-y-1">
             <div class="w-24 h-24 mx-auto mb-4 bg-secondary/30 rounded-full flex items-center justify-center">
               <img src="assets/images/logo_c.png" alt="C语言标志" class="w-16 h-16 object-contain skill-icon" loading="lazy" 
-                   onerror="this.classList.add('fallback-img'); this.src=''; this.alt='C语言图标'"> <!-- 修复了 onerrorerror 拼写错误 -->
+                   onerror="this.classList.add('fallback-img'); this.src=''; this.alt='C语言图标'">
             </div>
             <h3 class="text-xl font-semibold mb-2">C语言</h3>
             <p class="text-gray-600">微控制器固件开发的基础，高效、直接访问硬件，广泛应用于各种嵌入式系统</p>
@@ -190,8 +190,8 @@
         </div>
       </div>
     </section>
-    <!-- 芯片区域 -->
-    <section class="py-16 bg-gray-50" id="chips">
+    <!-- 微控制器展示区：介绍常用开发芯片 -->
+    <section class="py-16 bg-gray-50" id="microcontrollers">
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
           <h2 class="text-3xl font-bold mb-4">常用微控制器</h2>
@@ -226,7 +226,7 @@
         </div>
       </div>
     </section>
-    <!-- 项目预览 -->
+    <!-- 项目预览区：展示精选开发项目 -->
     <section class="py-16 bg-white" id="projects">
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
@@ -291,7 +291,7 @@
       </div>
     </section>
   </main>
-  <!-- 页脚 -->
+  <!-- 页脚：网站信息与联系方式 -->
   <footer class="bg-gray-800 text-white py-10">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -323,7 +323,7 @@
       </div>
     </div>
   </footer>
-  <!-- 交互脚本 -->
+  <!-- 交互脚本：处理导航菜单和页面交互效果 -->
   <script>
     // 移动端菜单切换
     const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -366,14 +366,24 @@
       }
     });
 
-    // --- 新增代码：解决移动端二级导航点击后无法再次点击的问题 ---
+    // 移动端二级导航菜单项点击后自动关闭菜单
+    const submenuItems = document.querySelectorAll('.submenu-item');
+    submenuItems.forEach(item => {
+      item.addEventListener('click', () => {
+        submenu.classList.add('hidden');
+        const icon = submenuButton.querySelector('i');
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+      });
+    });
+
     // 确保页面加载完成后，移动端二级菜单是隐藏的
     document.addEventListener('DOMContentLoaded', function() {
       const submenu = document.getElementById('submenu');
       if (submenu && !submenu.classList.contains('hidden')) {
         // 如果菜单存在且没有 hidden 类，则添加它
         submenu.classList.add('hidden');
-        // 可选：同时确保按钮图标是向下的
+        // 确保按钮图标是向下的
         const icon = document.querySelector('#submenu-button i.fa-chevron-down, #submenu-button i.fa-chevron-up');
         if (icon) {
           icon.classList.remove('fa-chevron-up');
@@ -381,7 +391,6 @@
         }
       }
     });
-    // --- 新增代码结束 ---
   </script>
 </body>
 </html>
