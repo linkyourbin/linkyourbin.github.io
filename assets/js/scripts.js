@@ -1,3 +1,3 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("LinkYourBin site loaded.");
+  console.log("LinkYourBin site ready!");
 });

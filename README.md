@@ -1,18 +1,27 @@
-# LinkYourBin - Embedded Systems Website
+# LinkYourBin
 
-This is a personal GitHub Pages site focused on embedded systems development with:
-- STM32
-- ESP32
-- RP2040
-- RP235x
+This is a GitHub Pages personal site for embedded development using:
 
-Technologies:
-- Rust (Embassy async, no_std)
-- C (HAL, STM32Cube)
-- Python (Tkinter GUI, scripting tools)
+- STM32 / ESP32 / RP2040 / RP235x
+- Rust + Embassy
+- C (bare-metal, HALs)
+- Python (GUI tools, scripts)
 
-## Deployment
-Simply push this repo to a GitHub repository named `linkyourbin.github.io`. GitHub Pages will host it automatically.
+## 🌐 Deployment
+
+Push this repo to GitHub under `linkyourbin.github.io`, GitHub Pages will auto-deploy it.
+
+## 🎨 Theme
+
+Colors: pink-blue-white  
+Fonts: Segoe UI  
+Logos: Rust, C, Python (placed in `assets/images/`)
+
+## 📧 Contact
+
+Email: contact@linkyourbin.dev  
+GitHub: https://github.com/linkyourbin
 
 ## License
+
 MIT
