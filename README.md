@@ -1,4 +1,4 @@
-# EmbeddedLab - linkyourbin个人网站
+# linkyourbin - linkyourbin个人网站
 
 这是一个基于HTML、Tailwind CSS和JavaScript的linkyourbin个人网站，专为GitHub Pages部署设计。
 
