@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -5,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>开发工具 - linkyourbin嵌入式开发实验室</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net.net/npm/npm/font-awesome@4.7.0/css/font-awesome-awesome.min.css" rel="stylesheet">
-  
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -17,13 +17,12 @@
             accent: '#9D65C9',
           },
           fontFamily: {
-            sans: ['Inter', 'PingFangFang SC', 'system-ui', 'sans-serif'],
+            sans: ['Inter', 'PingFang SC', 'system-ui', 'sans-serif'],
           }
         }
       }
     }
   </script>
-
   <style type="text/tailwindcss">
     @layer utilities {
       .text-shadow {
@@ -42,15 +41,13 @@
     }
   </style>
 </head>
-
 <body class="bg-gray-50 text-gray-800 font-sans">
   <!-- 主导航栏 -->
   <header class="sticky top-0 z-50 bg-white shadow-md transition-custom">
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <a href="/" class="flex items items-center space-x-2" aria-label="返回首页">
+      <a href="/" class="flex items-center space-x-2" aria-label="返回首页">
         <span class="text-2xl font-bold text-primary">linkyourbin</span>
       </a>
-      
       <!-- 桌面主导航 -->
       <nav class="hidden md:flex space-x-8" aria-label="主导航">
         <a href="/" class="font-medium text-gray-600 hover:text-primary transition-custom">首页</a>
@@ -59,14 +56,12 @@
         <a href="/pages/about.html" class="font-medium text-gray-600 hover:text-primary transition-custom">关于</a>
         <a href="/pages/contact.html" class="font-medium text-gray-600 hover:text-primary transition-custom">联系</a>
       </nav>
-      
       <!-- 移动端菜单按钮 -->
       <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none" 
               aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">
         <i class="fa fa-bars text-2xl"></i>
       </button>
     </div>
-    
     <!-- 移动端主导航 -->
     <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full transition-custom" aria-hidden="true">
       <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
@@ -78,7 +73,6 @@
       </div>
     </div>
   </header>
-
   <!-- 二级导航栏 -->
   <div class="bg-primary/20 border-b-2 border-primary py-3 shadow-md">
     <div class="container mx-auto px-4">
@@ -99,7 +93,6 @@
           <i class="fa fa-code-fork mr-2"></i>开源项目
         </a>
       </nav>
-      
       <!-- 移动端二级导航下拉菜单 -->
       <div class="md:hidden">
         <button id="submenu-button" class="w-full text-left flex justify-between items-center text-base font-medium text-primary py-2">
@@ -126,14 +119,12 @@
       </div>
     </div>
   </div>
-
   <main class="py-12">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12">
         <h1 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800">嵌入式开发工具</h1>
         <p class="text-gray-600 max-w-2xl mx-auto">精选嵌入式开发常用工具，提高开发效率和代码质量</p>
       </div>
-      
       <!-- 开发工具分类 -->
       <div class="mb-10">
         <div class="flex overflow-x-auto pb-2 mb-8 scrollbar-hide space-x-4">
@@ -153,7 +144,6 @@
             烧录工具
           </button>
         </div>
-        
         <!-- 工具列表 -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- 工具1 -->
@@ -171,7 +161,6 @@
               </div>
             </div>
           </div>
-          
           <!-- 工具2 -->
           <div class="bg-white rounded-xl overflow-hidden shadow-md tool-card">
             <div class="h-40 bg-secondary/10 flex items-center justify-center p-6">
@@ -187,7 +176,6 @@
               </div>
             </div>
           </div>
-          
           <!-- 工具3 -->
           <div class="bg-white rounded-xl overflow-hidden shadow-md tool-card">
             <div class="h-40 bg-accent/10 flex items-center justify-center p-6">
@@ -203,7 +191,6 @@
               </div>
             </div>
           </div>
-          
           <!-- 工具4 -->
           <div class="bg-white rounded-xl overflow-hidden shadow-md tool-card">
             <div class="h-40 bg-primary/10 flex items-center justify-center p-6">
@@ -219,7 +206,6 @@
               </div>
             </div>
           </div>
-          
           <!-- 工具5 -->
           <div class="bg-white rounded-xl overflow-hidden shadow-md tool-card">
             <div class="h-40 bg-secondary/10 flex items-center justify-center p-6">
@@ -235,7 +221,6 @@
               </div>
             </div>
           </div>
-          
           <!-- 工具6 -->
           <div class="bg-white rounded-xl overflow-hidden shadow-md tool-card">
             <div class="h-40 bg-accent/10 flex items-center justify-center p-6">
@@ -253,7 +238,6 @@
           </div>
         </div>
       </div>
-      
       <!-- 工具使用技巧 -->
       <div class="bg-white rounded-xl shadow-md p-6 md:p-8 mt-12">
         <h2 class="text-2xl font-bold mb-6 text-gray-800">工具使用技巧</h2>
@@ -267,7 +251,6 @@
               <p class="text-gray-600">合理配置编辑器字体、主题和代码格式化工具，可以显著提高代码编写效率和可读性</p>
             </div>
           </div>
-          
           <div class="flex">
             <div class="flex-shrink-0 w-10 h-10 bg-secondary/20 rounded-full flex items-center justify-center mr-4">
               <i class="fa fa-cogs text-secondary"></i>
@@ -277,7 +260,6 @@
               <p class="text-gray-600">使用Makefile或CMake实现自动化构建，减少重复工作，提高项目可维护性</p>
             </div>
           </div>
-          
           <div class="flex">
             <div class="flex-shrink-0 w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center mr-4">
               <i class="fa fa-code-fork text-accent"></i>
@@ -291,7 +273,6 @@
       </div>
     </div>
   </main>
-
   <!-- 页脚 -->
   <footer class="bg-gray-800 text-white py-10 mt-16">
     <div class="container mx-auto px-4">
@@ -300,7 +281,6 @@
           <h3 class="text-xl font-bold mb-4 text-primary">linkyourbin</h3>
           <p class="text-gray-400">专注嵌入式系统开发，热衷于分享STM32、ESP32等微控制器的实战项目与技术经验，致力于为初学者提供清晰易懂的学习路径。</p>
         </div>
-        
         <div>
           <h3 class="text-lg font-semibold mb-4">快速链接</h3>
           <ul class="space-y-2 text-gray-400">
@@ -311,7 +291,6 @@
             <li><a href="/pages/contact.html" class="hover:text-primary transition-custom">联系</a></li>
           </ul>
         </div>
-        
         <div>
           <h3 class="text-lg font-semibold mb-4">联系我</h3>
           <ul class="space-y-2 text-gray-400">
@@ -321,25 +300,21 @@
           </ul>
         </div>
       </div>
-      
       <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
         <p>&copy; 2025 linkyourbin. 保留所有权利。</p>
       </div>
     </div>
   </footer>
-
   <!-- 交互脚本 -->
   <script>
     // 移动端菜单切换
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
-    
     mobileMenuButton.addEventListener('click', () => {
       const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
       mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
       mobileMenu.classList.toggle('hidden');
       mobileMenu.setAttribute('aria-hidden', isExpanded);
-      
       // 切换图标
       const icon = mobileMenuButton.querySelector('i');
       if (isExpanded) {
@@ -350,11 +325,9 @@
         icon.classList.add('fa-times');
       }
     });
-
     // 移动端二级导航菜单切换
     const submenuButton = document.getElementById('submenu-button');
     const submenu = document.getElementById('submenu');
-    
     if (submenuButton && submenu) {
       submenuButton.addEventListener('click', () => {
         submenu.classList.toggle('hidden');
@@ -363,7 +336,6 @@
         icon.classList.toggle('fa-chevron-down');
       });
     }
-
     // 导航栏滚动效果
     window.addEventListener('scroll', () => {
       const header = document.querySelector('header');
