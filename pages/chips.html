@@ -4,42 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>芯片 - LinkYourBin</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script defer src="assets/js/script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
     <!-- Header -->
     <header>
-        <nav>
-            <a href="index.html" class="logo">
-                <i class="fas fa-microchip"></i>
-                LinkYourBin
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="chips.html">芯片</a></li>
-                <li><a href="projects.html">项目</a></li>
-                <li><a href="about.html">关于</a></li>
-                <li><a href="contact.html">联系</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-microchip"></i>
+                    LinkYourBin
+                </a>
+                <div class="nav-links">
+                    <a href="../index.html#home">首页</a>
+                    <a href="../pages/chips.html">芯片</a>
+                    <a href="../pages/projects.html">项目</a>
+                    <a href="../pages/about.html">关于</a>
+                    <a href="../pages/contact.html">联系</a>
+                </div>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
     </header>
 
     <!-- Chips Section -->
     <section class="chips">
         <div class="container">
-            <h2>核心技术平台</h2>
-            <p>专注于以下芯片平台的嵌入式开发与应用</p>
+            <div class="section-title">
+                <h2>核心技术平台</h2>
+                <p>专注于以下芯片平台的嵌入式开发与应用</p>
+            </div>
             <div class="chip-grid">
                 <div class="chip-card">
-                    <div class="chip-icon"><i class="fas fa-microchip"></i></div>
+                    <div class="chip-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
                     <h3>STM32系列</h3>
                     <p>基于ARM Cortex-M内核的32位微控制器，广泛应用于工业控制、物联网等领域。</p>
                     <a href="#" class="btn">了解更多</a>
                 </div>
-                <!-- 其他芯片卡片 -->
+                <div class="chip-card">
+                    <div class="chip-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h3>ESP32系列</h3>
+                    <p>集成Wi-Fi和蓝牙功能的低成本、低功耗系统级芯片，适用于物联网应用。</p>
+                    <a href="#" class="btn">了解更多</a>
+                </div>
+                <div class="chip-card">
+                    <div class="chip-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>RP2040/RP2350</h3>
+                    <p>Raspberry Pi设计的双核ARM Cortex-M0+微控制器，性能强大且易于开发。</p>
+                    <a href="#" class="btn">了解更多</a>
+                </div>
+                <div class="chip-card">
+                    <div class="chip-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI集成</h3>
+                    <p>将机器学习模型部署到边缘设备，实现智能感知和决策能力。</p>
+                    <a href="#" class="btn">了解更多</a>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-microchip"></i>
+                    LinkYourBin
+                </div>
+                <div class="footer-links">
+                    <a href="../index.html#home">首页</a>
+                    <a href="../pages/chips.html">芯片</a>
+                    <a href="../pages/projects.html">项目</a>
+                    <a href="../pages/about.html">关于</a>
+                    <a href="../pages/contact.html">联系</a>
+                </div>
+                <div class="copyright">
+                    &copy; 2023 LinkYourBin. 保留所有权利。
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>
