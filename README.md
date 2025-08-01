@@ -11,6 +11,7 @@
 - 包含首页、项目展示、芯片介绍、关于我和联系页面
 
 ## 目录结构
+```bash
 linkyourbin.github.io/
 ├── index.html           # 首页
 ├── README.md            # 项目说明
@@ -29,7 +30,9 @@ linkyourbin.github.io/
     ├── chips.html       # 芯片介绍页面
     ├── contact.html     # 联系页面
     └── projects.html    # 项目展示页面
+```
 ## 部署方法
+
 
 1. 将仓库命名为 `yourusername.github.io`
 2. 将所有文件推送到GitHub仓库
